@@ -1,5 +1,6 @@
 const User = require("../models/user.model.js");
 const bcrypt = require("bcrypt");
+
 exports.createUser = async (req, res) => {
   try {
     const user = await User.create(req.body);
@@ -29,7 +30,12 @@ exports.getUserById = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    const response = { user: user.username, image: user.image };
+    const response = {
+      user: user.username,
+      image: user.image,
+      friend_requests: user.friend_requests,
+      friends: user.friends,
+    };
     res.status(200).json(response);
   } catch (error) {
     console.error("Error fetching user by ID:");
@@ -43,7 +49,12 @@ exports.getUserByName = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    const response = { user: user.username, image: user.image };
+    const response = {
+      user: user.username,
+      image: user.image,
+      friend_requests: user.friend_requests,
+      friends: user.friends,
+    };
     res.status(200).json(response);
   } catch (error) {
     console.error("Error fetching user by username:");
@@ -58,7 +69,9 @@ exports.getAllUsers = async (req, res) => {
       user = {
         username: user.username,
         image: user.image,
+        id: user._id,
         friends: user.friends,
+        friend_requests: user.friend_requests,
       };
       return user;
     });

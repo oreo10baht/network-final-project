@@ -17,7 +17,10 @@ const UserSchema = mongoose.Schema(
       type: String,
       required: false,
     },
-    friends: [{ type: mongoose.Schema.Types.ObjectId, ref: "Friends" }],
+    friends: [{ type: mongoose.Schema.Types.ObjectId, ref: "Users" }],
+    friend_requests: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "FriendRequests" },
+    ],
   },
   {
     timestamps: true,

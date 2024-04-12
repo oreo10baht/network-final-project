@@ -1,6 +1,9 @@
 const User = require("../models/user.model.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const passport = require("passport");
+const JwtStrategy = require("passport-jwt").Strategy;
+const ExtractJwt = require("passport-jwt").ExtractJwt;
 
 exports.userLogin = async (req, res) => {
   try {
@@ -11,7 +14,9 @@ exports.userLogin = async (req, res) => {
     }
     bcrypt.compare(password, user.password, function (err, result) {
       if (result) {
-        const payload = { username: user.username, user_id: user._id };
+        const payload = {
+          user_id: user._id.toString(),
+        };
         const token = jwt.sign(payload, process.env.JWT_SECRET, {
           expiresIn: 60 * 60 * 24 * 7,
         });
@@ -51,3 +56,22 @@ exports.createUser = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+const jwtOptions = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: process.env.JWT_SECRET,
+};
+const jwtAuth = new JwtStrategy(jwtOptions, async (payload, done) => {
+  try {
+    const user = await User.findById(payload.user_id);
+    if (user) {
+      done(null, user);
+    } else {
+      done(null, false);
+    }
+  } catch (error) {
+    done(error, false);
+  }
+});
+passport.use(jwtAuth);
+exports.authenticateUser = passport.authenticate("jwt", { session: false });

@@ -9,14 +9,25 @@ const UserSchema = mongoose.Schema(
       required: [true, "Please enter your username."],
       index: { unique: true },
     },
+    display_name: {
+      type: String,
+      required: [true, "Please enter your display name."],
+    },
     password: {
       type: String,
       required: [true, "Please enter your password."],
+    },
+    description: {
+      type: String,
+      required: false,
     },
     image: {
       type: String,
       required: false,
     },
+    friends: [{ type: mongoose.Schema.Types.ObjectId, ref: "Users" }],
+    pendings: [{ type: mongoose.Schema.Types.ObjectId, ref: "Users" }],
+    requests: [{ type: mongoose.Schema.Types.ObjectId, ref: "Users" }],
   },
   {
     timestamps: true,
@@ -38,6 +49,7 @@ UserSchema.pre("save", function (next) {
     });
   });
 });
+
 UserSchema.methods.comparePassword = function (candidatePassword, cb) {
   bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
     if (err) return cb(err);

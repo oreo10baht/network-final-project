@@ -4,26 +4,22 @@ const app = express();
 const PORT = 8080;
 const connectDB = require("./db");
 
-const User = require("./models/user.model.js");
-
+//Dependencies
 app.use(cors());
 app.use(express.json());
 
+//Routes
+const usersRouter = require("./routes/users");
+const friendsRouter = require("./routes/friends");
+
 connectDB();
-const exampleRouter = require("./routes/users");
-app.use("/", exampleRouter);
-app.post("/api/users", async (req, res) => {
-  try {
-    const user = await User.create(req.body);
-    res.status(200).json(user);
-  } catch (error) {
-    console.log("Error creating user.");
-    res.status(500).json({ message: error.message });
-  }
-});
+app.use("/api/users", usersRouter);
+app.use("/api/friends", friendsRouter);
+
 app.get("/api/home", (req, res) => {
   res.json({ message: `Ok boys we're done.` });
 });
+
 app.listen(PORT, () => {
   console.log(`Server started on ${PORT}`);
 });

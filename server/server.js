@@ -11,10 +11,12 @@ app.use(express.json());
 //Routes
 const usersRouter = require("./routes/users");
 const friendsRouter = require("./routes/friends");
+const chatRoute = require("./routes/chats");
 
 connectDB();
 app.use("/api/users", usersRouter);
 app.use("/api/friends", friendsRouter);
+app.use("/api/chats", chatRoute);
 
 app.get("/api/home", (req, res) => {
   res.json({ message: `Ok boys we're done.` });

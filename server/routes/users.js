@@ -1,8 +1,10 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
+const userController = require("../controllers/userController");
 
-router.get("/api/example", (req,res) => {
-    res.json({message: "Example 1 Let's go?"});
-})
+router.get("/", userController.getAllUsers);
+router.get("/:id", userController.getUserById);
+router.post("/", userController.createUser);
+router.post("/login", userController.userLogin);
 
 module.exports = router;

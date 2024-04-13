@@ -1,11 +1,33 @@
+"use client";
 import Link from "next/link";
+import { useState } from "react";
+import { UserLogin, User } from "@/models/User";
+import { useAuthContext } from "@/context/Auth";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
-  const handleSubmit = () => {};
+  const [tmpUser, setTmpUser] = useState<UserLogin>({} as UserLogin);
+
+  const {user,setUser} = useAuthContext()
+
+  const router = useRouter()
+
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTmpUser({
+      ...tmpUser,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const handleSubmit = (e: any) => {
+    e.preventDefault()
+    //! Set Auth Stuff here
+    console.log(tmpUser);
+    router.push("/home/all")
+  };
   return (
     <div className="bg-gray-500 flex flex-col p-6 rounded-xl text-gray-900 font-medium">
-      <div className="font-bold large-text">Login</div>
-      <form>
+      <div className="font-bold large-text text-center">Login</div>
+      <form onSubmit={handleSubmit}>
         <div className="my-2">
           <label htmlFor="username" className="small-text">
             Username
@@ -15,7 +37,8 @@ const Login = () => {
             type="text"
             name="username"
             required
-            className="flex rounded-lg"
+            className="flex rounded-lg p-1"
+            onChange={handleFormChange}
           ></input>
         </div>
         <div className="my-2">
@@ -27,7 +50,8 @@ const Login = () => {
             type="text"
             name="password"
             required
-            className="flex rounded-lg"
+            className="flex rounded-lg p-1"
+            onChange={handleFormChange}
           ></input>
         </div>
         <div className="w-full flex justify-center">

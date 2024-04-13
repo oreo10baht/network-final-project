@@ -10,3 +10,16 @@ export interface User {
   friendList: string[]; //arr of uid
   status: string;
 }
+
+export interface UserRegister {
+  username: string;
+  name: string;
+  password: string;
+  profileImg?: string;
+  description: string;
+}
+
+export interface UserLogin {
+  username: string;
+  password: string;
+}

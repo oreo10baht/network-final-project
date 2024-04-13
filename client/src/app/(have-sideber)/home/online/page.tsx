@@ -2,7 +2,8 @@
 import { generateMockUsers } from "@/utils/mockUser";
 import { useEffect, useState } from "react";
 import { User } from "@/models/User";
-import UserBox from "@/components/๊UserBox";
+import UserBoxes from "@/components/UserBoxes";
+import Empty from "@/components/Empty";
 
 const Online = () => {
   const [Users, setUsers] = useState<User[]>([] as User[]);
@@ -11,13 +12,13 @@ const Online = () => {
     setUsers(users);
   }, []);
   return (
-    <div className="grid grid-cols-3 gap-3 m-3 ">
-      {Users.length !== 0
-        ? Users.map((user: User) => (
-            <UserBox user={user} key={user.uid}></UserBox>
-          ))
-        : null}
-    </div>
+    <>
+      {Users.length !== 0 ? (
+        <UserBoxes users={Users}></UserBoxes>
+      ) : (
+        <Empty text="no online user"></Empty>
+      )}
+    </>
   );
 };
 

@@ -1,9 +1,9 @@
 "use client";
-import { generateMockUsers } from "@/utils/mockUser";
 import { useEffect, useState } from "react";
 import { UserMe } from "@/models/User";
-import UserBox from "@/components/๊UserBox";
 import { getAllUsers } from "@/services/getAllUsers";
+import UserBoxes from "@/components/UserBoxes";
+import Empty from "@/components/Empty";
 const All = () => {
   const [Users, setUsers] = useState<UserMe[]>([] as UserMe[]);
   useEffect(() => {
@@ -13,16 +13,16 @@ const All = () => {
         setUsers(users);
       }
     };
-    fetchUser()
+    fetchUser();
   }, []);
   return (
-    <div className="grid grid-cols-3 gap-3 m-3 ">
-      {Users.length !== 0
-        ? Users.map((user: UserMe) => (
-            <UserBox user={user} key={user.username}></UserBox>
-          ))
-        : null}
-    </div>
+    <>
+      {Users.length !== 0 ? (
+        <UserBoxes users={Users}></UserBoxes>
+      ) : (
+        <Empty text="no user"></Empty>
+      )}
+    </>
   );
 };
 

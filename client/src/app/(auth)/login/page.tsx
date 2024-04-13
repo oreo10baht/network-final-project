@@ -2,14 +2,11 @@
 import Link from "next/link";
 import { useState } from "react";
 import { UserLogin, User } from "@/models/User";
-import { useAuthContext } from "@/context/Auth";
 import { useRouter } from "next/navigation";
 import { login } from "@/services/login";
 
 const Login = () => {
   const [tmpUser, setTmpUser] = useState<UserLogin>({} as UserLogin);
-
-  const { setUser } = useAuthContext();
 
   const router = useRouter();
 
@@ -21,11 +18,9 @@ const Login = () => {
   };
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const res =  await login(tmpUser);
-    //! Set Auth Stuff here
+    const res = await login(tmpUser);
     if (res) {
-      setUser(res);
-
+      console.log(res);
       router.push("/home/all");
     }
   };

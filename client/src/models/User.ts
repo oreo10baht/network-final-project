@@ -3,9 +3,10 @@ export interface User {
   username: string;
   name: string;
   password: string;
-  // pic:
+  profileImg?: string;
   description: string;
-  pendingList: string[];
-  reqList: string[];
-  friendList: string[];
+  pendingList: string[]; //arr of uid
+  reqList: string[]; //arr of uid
+  friendList: string[]; //arr of uid
+  status: string;
 }

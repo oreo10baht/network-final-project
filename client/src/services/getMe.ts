@@ -2,6 +2,7 @@ export async function getMe() {
   try {
     const response = await fetch("http://localhost:8080/api/users/auth/me", {
       method: "GET",
+      credentials:"include"
     });
 
     if (!response.ok) {

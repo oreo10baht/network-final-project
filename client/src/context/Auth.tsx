@@ -9,16 +9,20 @@ import {
   MutableRefObject,
 } from "react";
 import React from "react";
-import { User } from "@/models/User";
+import { UserMe } from "@/models/User";
 
 interface AuthContextType {
-  user: User | null;
-  setUser: Dispatch<SetStateAction<User | null>>;
+  user: UserMe | null;
+  setUser: Dispatch<SetStateAction<UserMe | null>>;
+  token: string | null;
+  setToken: Dispatch<SetStateAction<string | null>>;
 }
 
 const AuthContext = createContext<AuthContextType>({
   user: null,
-  setUser: (): User | null => null,
+  setUser: (): UserMe | null => null,
+  token: null,
+  setToken: (): string | null => null,
 });
 
 export const AuthContextProvider = ({
@@ -26,13 +30,16 @@ export const AuthContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserMe | null>(null);
+  const [token, setToken] = useState<string | null>(null);
 
   return (
     <AuthContext.Provider
       value={{
         user,
         setUser,
+        token,
+        setToken,
       }}
     >
       {children}

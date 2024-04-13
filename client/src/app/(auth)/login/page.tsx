@@ -4,9 +4,11 @@ import { useState } from "react";
 import { UserLogin, User } from "@/models/User";
 import { useRouter } from "next/navigation";
 import { login } from "@/services/login";
+import { useAuthContext } from "@/context/Auth";
 
 const Login = () => {
   const [tmpUser, setTmpUser] = useState<UserLogin>({} as UserLogin);
+  const { setToken } = useAuthContext();
 
   const router = useRouter();
 
@@ -21,6 +23,7 @@ const Login = () => {
     const res = await login(tmpUser);
     if (res) {
       console.log(res);
+      setToken(res.token);
       router.push("/home/all");
     }
   };

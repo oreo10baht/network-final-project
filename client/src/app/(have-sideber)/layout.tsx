@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Sidebar from "@/components/Sidebar";
 import { useAuthContext } from "@/context/Auth";
@@ -7,25 +7,26 @@ import { useEffect } from "react";
 import { getMe } from "@/services/getMe";
 
 export default function layout({ children }: { children: React.ReactNode }) {
-  // const {user,setUser} = useAuthContext()
-  // const router = useRouter()
-  // // if(user===null){
-  // //   router.push("/login")
-  // // }
-  // useEffect(()=>{
-  //   const getCurrentUser = async ()=>{
-  //     const res = await getMe()
-  //     if(res){
-  //       co
-  //       setUser(res)
-  //     }
+  const { token, user, setUser } = useAuthContext();
+  const router = useRouter();
 
-  //   }
-  //   getCurrentUser()
-  // }
-
-  // ,[])
-
+  useEffect(() => {
+    const getCurrentUser = async () => {
+      if (token === null) {
+        router.push("/login");
+      } else {
+        const res = await getMe(token);
+        if (res) {
+          setUser(res);
+          console.log(res);
+        } else {
+          router.push("/login");
+        }
+      }
+    };
+    getCurrentUser();
+    console.log(user);
+  }, []);
   return (
     <div className="flex flex-row">
       <Sidebar></Sidebar>

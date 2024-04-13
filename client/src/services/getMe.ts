@@ -1,8 +1,10 @@
-export async function getMe() {
+export async function getMe(token: string) {
   try {
     const response = await fetch("http://localhost:8080/api/users/auth/me", {
       method: "GET",
-      credentials:"include"
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
     });
 
     if (!response.ok) {

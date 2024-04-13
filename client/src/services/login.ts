@@ -2,7 +2,7 @@ import { UserLogin } from "@/models/User";
 
 export async function login(userInfo: UserLogin) {
   try {
-    const response = await fetch("http://localhost:8080/login", {
+    const response = await fetch("http://localhost:8080/api/users/login", {
       method: "POST",
       body: JSON.stringify(userInfo),
     });

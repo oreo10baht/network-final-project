@@ -2,7 +2,7 @@ import { UserRegister } from "@/models/User";
 
 export async function register(userInfo: UserRegister) {
   try {
-    const response = await fetch("http://localhost:8080/register", {
+    const response = await fetch("http://localhost:8080/api/users/register", {
       method: "POST",
       body: JSON.stringify(userInfo),
     });

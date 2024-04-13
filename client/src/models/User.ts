@@ -1,7 +1,7 @@
 export interface User {
   uid: string;
   username: string;
-  name: string;
+  display_name: string;
   password: string;
   profileImg?: string;
   description: string;
@@ -13,7 +13,7 @@ export interface User {
 
 export interface UserRegister {
   username: string;
-  name: string;
+  display_name: string;
   password: string;
   profileImg?: string;
   description: string;

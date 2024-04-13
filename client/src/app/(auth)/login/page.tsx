@@ -4,6 +4,7 @@ import { useState } from "react";
 import { UserLogin, User } from "@/models/User";
 import { useAuthContext } from "@/context/Auth";
 import { useRouter } from "next/navigation";
+import { login } from "@/services/login";
 
 const Login = () => {
   const [tmpUser, setTmpUser] = useState<UserLogin>({} as UserLogin);
@@ -21,8 +22,10 @@ const Login = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     //! connect API here
-
+    // const res = login(tmpUser)
     //! Set Auth Stuff here
+    // setUser(res)
+
     console.log(tmpUser);
     router.push("/home/all");
   };

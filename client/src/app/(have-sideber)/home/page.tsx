@@ -1,8 +1,9 @@
+import UserBox from "@/components/๊UserBox";
 
 const page = () => {
   return (
     <div className="flex flex-col">
-      dfvbkdfvbfb
+      <UserBox></UserBox>
     </div>
   );
 };

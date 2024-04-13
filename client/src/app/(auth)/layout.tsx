@@ -1,8 +1,6 @@
-import Sidebar from "@/components/Sidebar";
 export default function layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-row">
-      <Sidebar></Sidebar>
+    <div className="bg-gray-700 flex justify-center items-center w-screen h-screen">
 
       {children}
     </div>

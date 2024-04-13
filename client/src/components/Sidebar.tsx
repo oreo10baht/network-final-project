@@ -1,11 +1,13 @@
-const Sidebar = () => {
-  return <div className="h-screen w-40 fixed top-0 left-0 bg-slate-900 m-0 flex flex-col text-white ">
-    <i>a</i>
-    <i>s</i>
-    <i>s</i>
-    <i>f</i>
+import SidebarIcon from "./SidebarIcon";
 
-  </div>;
+const Sidebar = () => {
+  return (
+    <div className="h-screen w-16 fixed bg-gray-900 top-0 left-0  flex flex-col text-white ">
+      <SidebarIcon text="hbsdc"></SidebarIcon>
+      <SidebarIcon text="hbsdc"></SidebarIcon>
+      <SidebarIcon text="hbsdc"></SidebarIcon>
+    </div>
+  );
 };
 
 export default Sidebar;

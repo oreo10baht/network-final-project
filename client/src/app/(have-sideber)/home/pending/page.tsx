@@ -4,14 +4,22 @@ import { useEffect, useState } from "react";
 import { User } from "@/models/User";
 import UserBox from "@/components/๊UserBox";
 import { useAuthContext } from "@/context/Auth";
+import { getUserbyId } from "@/services/getUserbyId";
 const Pending = () => {
   const [Users, setUsers] = useState<User[]>([] as User[]);
   const {user} = useAuthContext()
 
   useEffect(() => {
-    console.log(user)
-    const users = generateMockUsers(3);
-    setUsers(users);
+
+    if(user){
+      user.pendings.forEach(async(pid:string)=>{
+          const penUser = await getUserbyId(pid)
+          if(penUser){
+            setUsers([...Users,penUser])
+          }
+      })
+    }
+
   }, []);
 
   return (

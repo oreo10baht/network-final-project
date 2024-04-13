@@ -8,9 +8,9 @@ import { useRouter } from "next/navigation";
 const Login = () => {
   const [tmpUser, setTmpUser] = useState<UserLogin>({} as UserLogin);
 
-  const {user,setUser} = useAuthContext()
+  const { setUser } = useAuthContext();
 
-  const router = useRouter()
+  const router = useRouter();
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTmpUser({
@@ -19,10 +19,12 @@ const Login = () => {
     });
   };
   const handleSubmit = (e: any) => {
-    e.preventDefault()
+    e.preventDefault();
+    //! connect API here
+
     //! Set Auth Stuff here
     console.log(tmpUser);
-    router.push("/home/all")
+    router.push("/home/all");
   };
   return (
     <div className="bg-gray-500 flex flex-col p-6 rounded-xl text-gray-900 font-medium">

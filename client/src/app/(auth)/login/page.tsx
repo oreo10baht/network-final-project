@@ -19,15 +19,15 @@ const Login = () => {
       [e.target.name]: e.target.value,
     });
   };
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    //! connect API here
-    // const res = login(tmpUser)
+    const res =  await login(tmpUser);
     //! Set Auth Stuff here
-    // setUser(res)
+    if (res) {
+      setUser(res);
 
-    console.log(tmpUser);
-    router.push("/home/all");
+      router.push("/home/all");
+    }
   };
   return (
     <div className="bg-gray-500 flex flex-col p-6 rounded-xl text-gray-900 font-medium">

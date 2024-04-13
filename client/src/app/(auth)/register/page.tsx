@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { User, UserRegister } from "@/models/User";
 import { useRouter } from "next/navigation";
+import { register } from "@/services/register";
 
 const Register = () => {
   const [tmpUser, setTmpUser] = useState<UserRegister>({} as UserRegister);
@@ -12,11 +13,12 @@ const Register = () => {
       [e.target.name]: e.target.value,
     });
   };
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
+    const res = await register(tmpUser)
     //! connect API here
-    console.log(tmpUser);
-    router.push("/login");
+    console.log(res);
+    // router.push("/login");
   };
   return (
     <div className="bg-gray-500 flex flex-col p-6 rounded-xl text-gray-900 font-medium">
@@ -69,7 +71,6 @@ const Register = () => {
             id="description"
             type="text"
             name="description"
-            required
             className="flex rounded-lg p-1"
             onChange={handleFormChange}
           ></input>

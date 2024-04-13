@@ -15,7 +15,7 @@ export interface UserRegister {
   username: string;
   display_name: string;
   password: string;
-  profileImg?: string;
+  // profileImg?: string;
   description: string;
 }
 

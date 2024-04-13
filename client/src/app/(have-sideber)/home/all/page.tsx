@@ -12,7 +12,9 @@ const All = () => {
   return (
     <div className="grid grid-cols-3 gap-3 m-3 ">
       {Users.length !== 0
-        ? Users.map((user: User) => <UserBox user={user}></UserBox>)
+        ? Users.map((user: User) => (
+            <UserBox user={user} key={user.uid}></UserBox>
+          ))
         : null}
     </div>
   );

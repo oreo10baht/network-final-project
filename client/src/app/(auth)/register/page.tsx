@@ -15,10 +15,10 @@ const Register = () => {
   };
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const res = await register(tmpUser)
-    //! connect API here
-    console.log(res);
-    // router.push("/login");
+    const res = await register(tmpUser);
+    if (res) {
+      router.push("/login");
+    }
   };
   return (
     <div className="bg-gray-500 flex flex-col p-6 rounded-xl text-gray-900 font-medium">
@@ -51,13 +51,13 @@ const Register = () => {
           ></input>
         </div>
         <div className="my-2">
-          <label htmlFor="name" className="small-text">
+          <label htmlFor="display_name" className="small-text">
             Name
           </label>
           <input
-            id="name"
+            id="display_name"
             type="text"
-            name="name"
+            name="display_name"
             required
             className="flex rounded-lg p-1"
             onChange={handleFormChange}
@@ -75,7 +75,7 @@ const Register = () => {
             onChange={handleFormChange}
           ></input>
         </div>
-        <div className="my-2">
+        {/* <div className="my-2">
           <label htmlFor="profileImg" className="small-text">
             Profile Image
           </label>
@@ -86,7 +86,7 @@ const Register = () => {
             className="flex rounded-lg p-1"
             onChange={handleFormChange}
           ></input>
-        </div>
+        </div> */}
 
         <div className="w-full flex justify-center">
           <button

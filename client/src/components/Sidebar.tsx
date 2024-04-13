@@ -7,22 +7,22 @@ const Sidebar = () => {
         <SidebarIcon text="Home"></SidebarIcon>
         <Divider></Divider>
         <SidebarIcon text="Create Group"></SidebarIcon>
-        <SidebarIcon text="hbsdc"></SidebarIcon>
-        <SidebarIcon text="hbsdc"></SidebarIcon>
-        <SidebarIcon text="hbsdc"></SidebarIcon>
-        <SidebarIcon text="hbsdc"></SidebarIcon>
-        <SidebarIcon text="hbsdc"></SidebarIcon>
-        <SidebarIcon text="hbsdc"></SidebarIcon>
-        <SidebarIcon text="hbsdc"></SidebarIcon>
-        <SidebarIcon text="hbsdc"></SidebarIcon>
-        <SidebarIcon text="hbsdc"></SidebarIcon>
-        <SidebarIcon text="hbsdc"></SidebarIcon>
-        <SidebarIcon text="hbsdc"></SidebarIcon>
-        <SidebarIcon text="hbsdc"></SidebarIcon>
-        <SidebarIcon text="hbsdc"></SidebarIcon>
-        <SidebarIcon text="hbsdc"></SidebarIcon>
-        <SidebarIcon text="hbsdc"></SidebarIcon>
-        <SidebarIcon text="hbsdc"></SidebarIcon>
+        <SidebarIcon text="GR"></SidebarIcon>
+        <SidebarIcon text="GR"></SidebarIcon>
+        <SidebarIcon text="GR"></SidebarIcon>
+        <SidebarIcon text="GR"></SidebarIcon>
+        <SidebarIcon text="GR"></SidebarIcon>
+        <SidebarIcon text="GR"></SidebarIcon>
+        <SidebarIcon text="GR"></SidebarIcon>
+        <SidebarIcon text="GR"></SidebarIcon>
+        <SidebarIcon text="GR"></SidebarIcon>
+        <SidebarIcon text="GR"></SidebarIcon>
+        <SidebarIcon text="GR"></SidebarIcon>
+        <SidebarIcon text="GR"></SidebarIcon>
+        <SidebarIcon text="GR"></SidebarIcon>
+        <SidebarIcon text="GR"></SidebarIcon>
+        <SidebarIcon text="GR"></SidebarIcon>
+        <SidebarIcon text="GR"></SidebarIcon>
  
       </div>
     </div>

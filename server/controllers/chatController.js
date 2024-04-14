@@ -52,6 +52,16 @@ exports.getAllUserChats = async (req, res) => {
   }
 };
 
+exports.getAllGroupChats = async (req, res) => {
+  try {
+    const allChats = await Chat.find({ type: "GROUP" });
+    res.status(200).json(allChats);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+
 exports.getUserChatsByUserId = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -224,12 +234,10 @@ exports.removeMemberFromRequestList = async (req, res) => {
 
     chat = await chat.save();
 
-    res
-      .status(200)
-      .json({
-        message: "Member removed from the request list successfully",
-        chat,
-      });
+    res.status(200).json({
+      message: "Member removed from the request list successfully",
+      chat,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json(error);

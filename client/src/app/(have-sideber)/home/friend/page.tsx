@@ -2,24 +2,26 @@
 import { useEffect, useState } from "react";
 import { UserMe } from "@/models/User";
 import { useAuthContext } from "@/context/Auth";
-import { getUserbyId } from "@/services/getUserbyId";
 import Empty from "@/components/Empty";
 import UserBox from "@/components/๊UserBox";
 import RemoveFriendBtn from "@/components/RemoveFriendBtn";
+import { getUsersbyIds } from "@/utils/getUsersbyIds";
 const Friend = () => {
   const [Users, setUsers] = useState<UserMe[]>([] as UserMe[]);
   const { user } = useAuthContext();
 
   useEffect(() => {
-    if (user.current) {
-      user.current.friends.forEach(async (pid: string) => {
-        const penUser = await getUserbyId(pid);
-        if (penUser) {
-          setUsers([...Users, penUser]);
+    const getFriends = async () => {
+      if (user.current) {
+        const friends: UserMe[] = await getUsersbyIds(user.current.friends);        
+        if(friends){
+          setUsers(friends)
         }
-      });
-    }
-  }, []);
+      }
+    };
+    getFriends()
+  });
+
 
   return (
     <>

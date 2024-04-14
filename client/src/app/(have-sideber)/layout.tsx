@@ -7,7 +7,6 @@ export default function layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="bg-gray-900 flex flex-row">
       <Sidebar></Sidebar>
-
       {children}
     </div>
   );

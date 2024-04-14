@@ -3,7 +3,7 @@ import { UserMe } from "@/models/User";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import AddFriendBtn from "./AddFriendBtn";
-const UserBox = ({ user }: { user: UserMe }) => {
+const UserBox = ({ user,children }: { user: UserMe ,children:React.ReactNode}) => {
   const router = useRouter();
   return (
     <div
@@ -28,7 +28,8 @@ const UserBox = ({ user }: { user: UserMe }) => {
             <p className="text-gray-300">{user.display_name}</p>
           </div>
         </div>
-        <AddFriendBtn recipientName={user.username}></AddFriendBtn>
+        {/* <AddFriendBtn recipientName={user.username}></AddFriendBtn> */}
+        {children}
       </div>
     </div>
   );

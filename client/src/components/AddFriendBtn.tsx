@@ -1,27 +1,38 @@
 "use client";
 import { useAuthContext } from "@/context/Auth";
-import { addFriend } from "@/services/addFriend";
-import { PlusIcon, CheckIcon } from "@radix-ui/react-icons";
+import { UserMe } from "@/models/User";
+import { addFriend } from "@/services/Friend";
+import { getMe } from "@/services/getMe";
 import { useState } from "react";
+
 const AddFriendBtn = ({ recipientName }: { recipientName: string }) => {
-  const { user } = useAuthContext();
+  const { user ,token} = useAuthContext();
   const [added, setAdded] = useState<boolean>(false);
 
   const addfriend = async (e: any) => {
     e.preventDefault();
-    const res = await addFriend(user!.username, recipientName);
+    const res = await addFriend(user.current!.username, recipientName);
     if (res) {
       setAdded(true);
       console.log(res);
+      const currentUser:UserMe = await getMe(token.current)
+      if(currentUser){
+        user.current = currentUser
+      }
     }
   };
   return (
     <div>
       <button
-        className="rounded-full bg-gray-600 p-1 size-8 flex justify-center items-center"
+        className=" bg-green-700 rounded-md p-1 h-8 w-24 flex justify-center items-center"
         onClick={addfriend}
       >
-        {added ? <CheckIcon className="size-32 text-gray-400" /> : <PlusIcon className="size-32 text-gray-400"/>}
+        {added ? (
+          <div className="small-text text-gray-100">Requested</div>
+        ) : (
+          // <PlusIcon className="size-8 text-gray-400" />
+          <div className="small-text text-gray-100">Add Friend</div>
+        )}
       </button>
     </div>
   );

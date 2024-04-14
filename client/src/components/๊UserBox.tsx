@@ -28,7 +28,6 @@ const UserBox = ({ user,children }: { user: UserMe ,children:React.ReactNode}) =
             <p className="text-gray-300">{user.display_name}</p>
           </div>
         </div>
-        {/* <AddFriendBtn recipientName={user.username}></AddFriendBtn> */}
         {children}
       </div>
     </div>

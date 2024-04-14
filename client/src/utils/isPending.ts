@@ -1,3 +1,3 @@
-export function isPending(username:string,pusernames:string[]):boolean{
-    return pusernames.includes(username)
+export function isPending(id:string,pids:string[]):boolean{
+    return pids.includes(id)
 }

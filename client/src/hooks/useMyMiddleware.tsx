@@ -37,5 +37,5 @@ export function useMyMiddleware() {
       }
     };
     getCurrentUser();
-  }, []);
+  },[]);
 }

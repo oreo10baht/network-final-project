@@ -8,4 +8,13 @@ router.get("/users/:userId", chatController.getUserChatsByUserId);
 router.get("/:chatId", chatController.getChat);
 router.delete("/:chatId", chatController.deleteChat);
 
+router.patch("/:chatId", chatController.addMemberToChat);
+router.delete("/:chatId/:memberId", chatController.removeMemberFromChat);
+
+router.patch("/req/:chatId", chatController.addMemberToRequestList);
+router.delete(
+  "/req/:chatId/:memberId",
+  chatController.removeMemberFromRequestList
+);
+
 module.exports = router;

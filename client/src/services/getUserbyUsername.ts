@@ -1,10 +1,8 @@
 export async function getUserbyUsername(username: string) {
   try {
-    console.log("sent:" + username);
     const bdata = { username: username };
-    console.log(bdata);
     const response = await fetch(
-      "http://localhost:8080/api/users/name/" + username,
+      `${process.env.backend}/api/users/name/` + username,
       {
         method: "GET",
       }

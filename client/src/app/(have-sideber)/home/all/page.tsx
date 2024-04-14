@@ -10,7 +10,6 @@ import { isFriend } from "@/utils/isFriend";
 import RemoveFriendBtn from "@/components/RemoveFriendBtn";
 import { isPending } from "@/utils/isPending";
 import AcceptFriendBtn from "@/components/AcceptFriendBtn";
-
 const All = () => {
   const [Users, setUsers] = useState<UserMe[]>([] as UserMe[]);
   const { user } = useAuthContext();

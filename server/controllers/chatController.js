@@ -9,7 +9,6 @@ exports.createChat = async (req, res) => {
     const secondUsername = await User.findOne({
       username: req.body.secondUsername,
     });
-
     if (!firstUsername || !secondUsername) {
       return res.status(404).json("User not found.");
     }

@@ -1,6 +1,6 @@
 export async function getMe(token: string) {
   try {
-    const response = await fetch("http://localhost:8080/api/users/auth/me", {
+    const response = await fetch(`${process.env.backend}/api/users/auth/me`, {
       method: "GET",
       headers: {
         authorization: `Bearer ${token}`,

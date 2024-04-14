@@ -1,6 +1,15 @@
 const express = require("express");
-const cors = require("cors");
 const app = express();
+const cors = require("cors");
+const http = require("http");
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+  },
+});
 const PORT = 8080;
 const connectDB = require("./db");
 
@@ -20,11 +29,17 @@ app.use("/api/friends", friendsRouter);
 app.use("/api/chats", chatRoute);
 app.use("/api/messages", messageRoute);
 
-app.get("/api/home", (req, res) => {
-  res.json({ message: `Ok boys we're done.` });
+io.on("connection", (socket) => {
+  socket.on("join-room", (room) => {
+    socket.join(room);
+    console.log("a user connected:", socket.id, "to", room);
+  });
+  socket.on("send-message", (data) => {
+    socket.to(data.chatId).emit("receive-message", data);
+    console.log(data);
+  });
 });
-
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server started on ${PORT}`);
 });
 

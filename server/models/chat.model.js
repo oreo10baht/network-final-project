@@ -8,6 +8,9 @@ const chatSchema = new mongoose.Schema(
       required: [true, "Please enter the members"],
     },
     type: { type: String, enum: ["PRIVATE", "GROUP"], default: "GROUP" },
+    requests: {
+      type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Users" }],
+    },
   },
   { timestamps: true }
 );

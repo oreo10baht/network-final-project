@@ -51,6 +51,16 @@ exports.getAllUserChats = async (req, res) => {
   }
 };
 
+exports.getAllGroupChats = async (req, res) => {
+  try {
+    const allChats = await Chat.find({ type: "GROUP" });
+    res.status(200).json(allChats);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+
 exports.getUserChatsByUserId = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -77,6 +87,46 @@ exports.getChat = async (req, res) => {
     if (!chat) {
       return res.status(404).json("Chat not found");
     }
+    res.status(200).json(chat);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+
+exports.getPrivateChatByUsername = async (req, res) => {
+  const firstId = req.body.firstId;
+  const secondId = req.body.secondId;
+  const firstUsername = req.body.firstUsername;
+  const secondUsername = req.body.secondUsername;
+
+  try {
+    const firstUser = await User.findOne({
+      $or: [{ _id: firstId }, { username: firstUsername }],
+    });
+    const secondUser = await User.findOne({
+      $or: [{ _id: secondId }, { username: secondUsername }],
+    });
+
+    if (!firstUser || !secondUser) {
+      return res.status(404).json("User not found.");
+    }
+
+    if (firstUser._id.toString() === secondUser._id.toString()) {
+      return res.status(400).json("User is the same person");
+    }
+
+    const chat = await Chat.findOne({
+      type: "PRIVATE",
+      members: {
+        $all: [firstUser._id, secondUser._id],
+      },
+    });
+
+    if (!chat) {
+      return res.status(404).json("Chat not found");
+    }
+
     res.status(200).json(chat);
   } catch (error) {
     console.log(error);

@@ -4,8 +4,10 @@ const chatController = require("../controllers/chatController");
 
 router.post("/", chatController.createChat);
 router.get("/all", chatController.getAllUserChats);
+router.get("/allgroup", chatController.getAllGroupChats);
 router.get("/users/:userId", chatController.getUserChatsByUserId);
 router.get("/:chatId", chatController.getChat);
+router.get("/", chatController.getPrivateChatByUsername);
 router.delete("/:chatId", chatController.deleteChat);
 
 router.patch("/:chatId", chatController.addMemberToChat);

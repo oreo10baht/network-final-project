@@ -95,6 +95,39 @@ exports.getChat = async (req, res) => {
   }
 };
 
+exports.getPrivateChatByUsername = async (req, res) => {
+  const firstId = req.body.firstId;
+  const secondId = req.body.secondId;
+  try {
+    const firstUser = await User.findOne({ _id: firstId });
+    const secondUser = await User.findOne({ _id: secondId });
+
+    if (!firstUser || !secondUser) {
+      return res.status(404).json("User not found.");
+    }
+
+    if (firstUser._id.toString() === secondUser._id.toString()) {
+      return res.status(400).json("User is the same person");
+    }
+
+    const chat = await Chat.findOne({
+      type: "PRIVATE",
+      members: {
+        $all: [firstUser._id, secondUser._id],
+      },
+    });
+
+    if (!chat) {
+      return res.status(404).json("Chat not found");
+    }
+
+    res.status(200).json(chat);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+
 exports.deleteChat = async (req, res) => {
   const chatId = req.params.chatId;
 

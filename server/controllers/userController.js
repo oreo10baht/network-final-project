@@ -28,6 +28,7 @@ exports.getUserById = async (req, res) => {
       friends: user.friends,
       pendings: user.pendings,
       requests: user.requests,
+      user_id: user._id,
     };
     res.status(200).json(response);
   } catch (error) {
@@ -50,6 +51,7 @@ exports.getUserByName = async (req, res) => {
       friends: user.friends,
       pendings: user.pendings,
       requests: user.requests,
+      user_id: user._id,
     };
     res.status(200).json(response);
   } catch (error) {
@@ -69,6 +71,7 @@ exports.getAllUsers = async (req, res) => {
         friends: user.friends,
         pendings: user.pendings,
         requests: user.requests,
+        user_id: user._id,
       };
       return user;
     });

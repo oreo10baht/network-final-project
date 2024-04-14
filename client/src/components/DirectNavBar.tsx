@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-const DirectNavBar = () => {
+const DirectNavBar = ({ username }: { username: string }) => {
   const router = useRouter();
   return (
     <div className="flex flex-row w-full h-14 bg-gray-700 gap-4 items-center border-b-gray-950 border-b-2">
@@ -18,7 +18,7 @@ const DirectNavBar = () => {
         </div>
       </div>
       <div className="text-gray-400 font-medium rounded-lg hover:bg-gray-500 ">
-        wagyu
+        {username}
       </div>
     </div>
   );

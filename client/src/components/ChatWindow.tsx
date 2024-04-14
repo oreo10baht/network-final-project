@@ -8,7 +8,7 @@ interface Message {
   timestamp: number;
 }
 
-const ChatWindow = () => {
+const ChatWindow = ({ username }: { username: string }) => {
   const [messages, setMessages] = useState<Message[]>([]);
 
   const handleSendMessage = (message: string) => {
@@ -23,13 +23,6 @@ const ChatWindow = () => {
   };
 
   return (
-    //       <div class="min-h-screen flex flex-col">
-    //     <div class='bg-blue-700 px-8 flex items-center justify-between py-4 shadow-sm text-white'> App Bar </div>
-    //     <div class='relative flex flex-grow'>
-    //         <nav class='bg-white shadow-sm p-6 space-y-6 w-64'> Navbar </nav>
-    //         <main class='bg-gray-100 flex-1 p-6'> Content will go here </main>
-    //     </div>
-    // </div>
     <div className="">
       <div className="content-list bg-gray-700 mb-6 flex flex-col flex-grow h-[700px] overflow-y-auto">
         <Message

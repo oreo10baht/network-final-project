@@ -8,6 +8,8 @@ import AddFriendBtn from "@/components/AddFriendBtn";
 import { useAuthContext } from "@/context/Auth";
 import { isFriend } from "@/utils/isFriend";
 import RemoveFriendBtn from "@/components/RemoveFriendBtn";
+import { isPending } from "@/utils/isPending";
+import AcceptFriendBtn from "@/components/AcceptFriendBtn";
 
 const All = () => {
   const [Users, setUsers] = useState<UserMe[]>([] as UserMe[]);
@@ -30,9 +32,16 @@ const All = () => {
             <UserBox user={userNotMe} key={userNotMe.user_id}>
               {user.current?.friends &&
               isFriend(userNotMe.user_id, user.current?.friends) ? (
-                <RemoveFriendBtn recipientName={userNotMe.user_id} />
+                <RemoveFriendBtn recipientName={userNotMe.username} />
               ) : (
-                <AddFriendBtn recipientName={userNotMe.user_id} />
+                <>
+                  {user.current?.pendings &&
+                  isPending(userNotMe.user_id, user.current?.pendings) ? (
+                    <AcceptFriendBtn recipientName={userNotMe.username} />
+                  ) : (
+                    <AddFriendBtn recipientName={userNotMe.username} />
+                  )}
+                </>
               )}
             </UserBox>
           ))}

@@ -1,3 +1,5 @@
 export function isFriend(username:string,fusernames:string[]):boolean{
-    return fusernames.includes(username)
+    const isfriend:boolean = fusernames.includes(username)
+    console.log(isfriend,"check is friend")
+    return isfriend
 }

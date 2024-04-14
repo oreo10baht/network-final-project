@@ -20,7 +20,7 @@ exports.userLogin = async (req, res) => {
         const token = jwt.sign(payload, process.env.JWT_SECRET, {
           expiresIn: 60 * 60 * 24 * 7,
         });
-        res.cookie("jwt", token, {
+        res.cookie("token", token, {
           httpOnly: true,
           maxAge: 7 * 24 * 60 * 60 * 1000,
         });

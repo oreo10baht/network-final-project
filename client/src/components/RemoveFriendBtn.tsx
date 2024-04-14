@@ -23,6 +23,7 @@ const RemoveFriendBtn = ({ recipientName }: { recipientName: string }) => {
       }
     }
   };
+
   return (
     <div className="flex flex-row gap-4">
       <ChatBtn path={recipientName}></ChatBtn>

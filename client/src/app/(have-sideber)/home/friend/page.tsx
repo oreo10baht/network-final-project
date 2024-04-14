@@ -6,7 +6,9 @@ import Empty from "@/components/Empty";
 import UserBox from "@/components/๊UserBox";
 import RemoveFriendBtn from "@/components/RemoveFriendBtn";
 import { getUsersbyIds } from "@/utils/getUsersbyIds";
+import { useMyMiddleware } from "@/hooks/useMyMiddleware";
 const Friend = () => {
+  useMyMiddleware();
   const [Users, setUsers] = useState<UserMe[]>([] as UserMe[]);
   const { user } = useAuthContext();
 

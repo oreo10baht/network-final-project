@@ -5,8 +5,10 @@ import { UserMe } from "@/models/User";
 import Empty from "@/components/Empty";
 import UserBox from "@/components/๊UserBox";
 import AddFriendBtn from "@/components/AddFriendBtn";
+import { useMyMiddleware } from "@/hooks/useMyMiddleware";
 
 const Online = () => {
+  useMyMiddleware();
   const [Users, setUsers] = useState<UserMe[]>([] as UserMe[]);
   useEffect(() => {
     const users = generateMockUsers(5);

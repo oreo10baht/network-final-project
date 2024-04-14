@@ -24,6 +24,7 @@ const Login = () => {
     if (res) {
       console.log(res)
       token.current = res.token;
+      console.log(token.current)
       router.push("/home/all");
     }
   };

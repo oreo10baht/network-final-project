@@ -3,7 +3,7 @@ import { PlusIcon, HomeIcon } from "@radix-ui/react-icons";
 
 const Sidebar = () => {
   return (
-    <div className="overflow-auto no-scrollbar h-screen w-16  bg-gray-900 top-0 left-0">
+    <div className="overflow-auto no-scrollbar h-screen w-16 sticky bg-gray-900 top-0 left-0">
       <div className="  flex flex-col text-white  ">
         <SidebarIcon text="Home" pathOnClicked="/home/all">
           <HomeIcon className="size-6" />

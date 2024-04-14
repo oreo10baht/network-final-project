@@ -5,7 +5,7 @@ import Image from "next/image";
 const DirectNavBar = ({ username }: { username: string }) => {
   const router = useRouter();
   return (
-    <div className="flex flex-row w-full h-14 bg-gray-700 gap-4 items-center border-b-gray-950 border-b-2">
+    <div className="flex flex-row w-full fixed top-0 z-40 h-14 bg-gray-700 gap-4 items-center border-b-gray-950 border-b-2">
       <div className="text-gray-400 font-medium rounded-lg ml-4 hover:bg-gray-500 ">
         <div>
           <Image

@@ -10,8 +10,10 @@ import { isFriend } from "@/utils/isFriend";
 import RemoveFriendBtn from "@/components/RemoveFriendBtn";
 import { isPending } from "@/utils/isPending";
 import AcceptFriendBtn from "@/components/AcceptFriendBtn";
+import { useMyMiddleware } from "@/hooks/useMyMiddleware";
 
 const All = () => {
+  useMyMiddleware();
   const [Users, setUsers] = useState<UserMe[]>([] as UserMe[]);
   const { user } = useAuthContext();
   useEffect(() => {

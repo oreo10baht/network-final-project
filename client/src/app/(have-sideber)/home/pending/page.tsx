@@ -6,12 +6,16 @@ import Empty from "@/components/Empty";
 import { getUsersbyIds } from "@/utils/getUsersbyIds";
 import UserBox from "@/components/๊UserBox";
 import AcceptFriendBtn from "@/components/AcceptFriendBtn";
+import { useMyMiddleware } from "@/hooks/useMyMiddleware";
 
 const Pending = () => {
-  const { user } = useAuthContext();
+  useMyMiddleware();
+
+  const { user,token } = useAuthContext();
   const [Users, setUsers] = useState<UserMe[]>([] as UserMe[]);
   useEffect(() => {
     const getPenUsers = async () => {
+      console.log(user,"in get pen",token)
       if (user.current) {
         const penUsers: UserMe[] = await getUsersbyIds(user.current.pendings);
         if (penUsers) {
@@ -19,6 +23,7 @@ const Pending = () => {
         }
       }
     };
+    console.log("get pen run")
     getPenUsers();
   });
 

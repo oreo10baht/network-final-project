@@ -32,6 +32,7 @@ exports.getUserById = async (req, res) => {
     res.status(200).json(response);
   } catch (error) {
     console.error("Error fetching user by ID:");
+    console.log(req.params.id);
     res.status(500).json({ message: error.message });
   }
 };

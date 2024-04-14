@@ -1,5 +1,5 @@
 export interface User {
-  uid: string;
+  id: string;
   username: string;
   display_name: string;
   password: string;
@@ -25,6 +25,7 @@ export interface UserLogin {
 }
 
 export interface UserMe {
+  id: string;
   username: string;
   display_name: string;
   pendings: string[]; //arr of uid

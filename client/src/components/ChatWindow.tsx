@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Image from "next/image";
 import { BsPlusCircleFill } from "react-icons/bs";
 
 interface Message {
@@ -22,15 +23,153 @@ const ChatWindow = () => {
   };
 
   return (
-    <div>
+    //       <div class="min-h-screen flex flex-col">
+    //     <div class='bg-blue-700 px-8 flex items-center justify-between py-4 shadow-sm text-white'> App Bar </div>
+    //     <div class='relative flex flex-grow'>
+    //         <nav class='bg-white shadow-sm p-6 space-y-6 w-64'> Navbar </nav>
+    //         <main class='bg-gray-100 flex-1 p-6'> Content will go here </main>
+    //     </div>
+    // </div>
+    <div className="">
+      <div className="content-list bg-gray-700 mb-6 flex flex-col flex-grow h-[700px] overflow-y-auto">
+        <Message
+          name="Leon"
+          timestamp="one week ago"
+          text={`Lorem ipsum dolor. `}
+        />
+        <Message name="Jill" timestamp="5 days ago" text={`Lorem.`} />
+        <Message
+          name="Ellie"
+          timestamp="4 days ago"
+          text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. `}
+        />
+        <Message
+          name="Ellie"
+          timestamp="4 days ago"
+          text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. `}
+        />
+        <Message
+          name="Ellie"
+          timestamp="4 days ago"
+          text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. `}
+        />
+        <Message
+          name="Ellie"
+          timestamp="4 days ago"
+          text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. `}
+        />
+        <Message
+          name="Ellie"
+          timestamp="4 days ago"
+          text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. `}
+        />
+        <Message
+          name="Ellie"
+          timestamp="4 days ago"
+          text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. `}
+        />
+        <Message
+          name="Ellie"
+          timestamp="4 days ago"
+          text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. `}
+        />
+        <Message
+          name="Ellie"
+          timestamp="4 days ago"
+          text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. `}
+        />
+        <Message
+          name="Ellie"
+          timestamp="4 days ago"
+          text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. `}
+        />
+        <Message
+          name="Ellie"
+          timestamp="4 days ago"
+          text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. `}
+        />
+        <Message
+          name="Ellie"
+          timestamp="4 days ago"
+          text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. `}
+        />
+        <Message
+          name="Ellie"
+          timestamp="4 days ago"
+          text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. `}
+        />
+        <Message
+          name="Ellie"
+          timestamp="4 days ago"
+          text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. `}
+        />
+        <Message
+          name="Ellie"
+          timestamp="4 days ago"
+          text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. `}
+        />
+        <Message
+          name="Ellie"
+          timestamp="4 days ago"
+          text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. `}
+        />
+        <Message
+          name="Ellie"
+          timestamp="4 days ago"
+          text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. `}
+        />
+        <Message
+          name="Ellie"
+          timestamp="4 days ago"
+          text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. `}
+        />
+        <Message
+          name="Ellie"
+          timestamp="4 days ago"
+          text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. `}
+        />
+        <Message
+          name="Ellie"
+          timestamp="4 days ago"
+          text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. `}
+        />
+        <Message
+          name="Ellie"
+          timestamp="4 days ago"
+          text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. `}
+        />
+        <Message
+          name="Ellie"
+          timestamp="4 days ago"
+          text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. `}
+        />
+        <Message
+          name="Ellie"
+          timestamp="4 days ago"
+          text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. `}
+        />
+        <Message
+          name="Ellie"
+          timestamp="4 days ago"
+          text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. `}
+        />
+        <Message
+          name="Ellie"
+          timestamp="4 days ago"
+          text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. `}
+        />
+        <Message
+          name="Ellie"
+          timestamp="4 days ago"
+          text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. `}
+        />
+        <Message
+          name="Ellie"
+          timestamp="4 days ago"
+          text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. `}
+        />
+      </div>
       <BottomBar />
-      {messages.map((message, index) => (
-        <div key={index}>
-          <p>{message.user}</p>
-          <p>{message.message}</p>
-          <p>{new Date(message.timestamp).toLocaleString()}</p>
-        </div>
-      ))}
     </div>
   );
 };
@@ -38,23 +177,52 @@ const ChatWindow = () => {
 const BottomBar = () => (
   <div
     className="flex flex-row items-center justify-between 
-    fixed left-88 right-8 bottom-2 
-    rounded-lg shadow-lg 
-    bg-gray-400 dark:bg-gray-600 px-2
-    h-12;"
+        w-full
+        ml-4 absolute bottom-6
+        rounded-lg shadow-lg
+        bg-gray-600 dark:bg-gray-600 px-2
+        h-12"
   >
     <PlusIcon />
     <input
       type="text"
       placeholder="Enter message..."
       className="font-semibold w-full
-    bg-transparent outline-none 
-    ml-0 mr-auto
-    text-gray-500  dark:text-gray-400 placeholder-gray-500
-    cursor-text"
+            bg-transparent outline-none 
+            ml-0 mr-auto
+            text-gray-400  dark:text-gray-400 placeholder-gray-400
+            cursor-text"
+      onSubmit={(e) => {
+        e.preventDefault();
+        console.log(e.target.value);
+      }}
     />
   </div>
 );
+
+const Message = ({ name, timestamp, text }) => {
+  const seed = Math.round(Math.random() * 100);
+  return (
+    <div className="post mt-5">
+      <div className="avatar-wrapper flex ml-4 gap-4">
+        <Image
+          src={`https://picsum.photos/200`}
+          alt=""
+          width={40}
+          height={40}
+          className="avatar rounded-full"
+        />
+        <div className="post-content text-white">
+          <p className="post-owner">
+            {name}
+            <small className="timestamp ml-2 text-gray-400">{timestamp}</small>
+          </p>
+          <p className="post-text">{text}</p>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const PlusIcon = () => (
   <BsPlusCircleFill

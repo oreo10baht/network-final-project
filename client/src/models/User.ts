@@ -1,13 +1,13 @@
 export interface User {
-  id: string;
+  user_id: string;
   username: string;
   display_name: string;
   password: string;
   profileImg?: string;
   description: string;
-  pendings: string[]; //arr of uid
-  requests: string[]; //arr of uid
-  friends: string[]; //arr of uid
+  pendings: string[]; //arr of uuser_id
+  requests: string[]; //arr of uuser_id
+  friends: string[]; //arr of uuser_id
   status: string;
 }
 
@@ -25,10 +25,10 @@ export interface UserLogin {
 }
 
 export interface UserMe {
-  id: string;
+  user_id: string;
   username: string;
   display_name: string;
-  pendings: string[]; //arr of uid
-  requests: string[]; //arr of uid
-  friends: string[]; //arr of uid
+  pendings: string[]; //arr of uuser_id
+  requests: string[]; //arr of uuser_id
+  friends: string[]; //arr of uuser_id
 }

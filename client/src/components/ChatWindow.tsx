@@ -24,7 +24,7 @@ const ChatWindow = ({ username }: { username: string }) => {
 
   return (
     <div className="w-full relative">
-      <div className="content-list bg-gray-700 mb-6 flex flex-col flex-grow w-full h-full overflow-y-auto">
+      <div className="content-list bg-gray-700 mb-20 flex flex-col flex-grow w-full h-full overflow-y-auto">
         <Message
           name="Leon"
           timestamp="one week ago"

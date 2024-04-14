@@ -14,8 +14,8 @@ const PORT = 8080;
 const connectDB = require("./db");
 
 //Dependencies
-app.use(cors());
 app.use(express.json());
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 
 //Routes
 const usersRouter = require("./routes/users");

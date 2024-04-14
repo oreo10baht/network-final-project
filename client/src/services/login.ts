@@ -7,6 +7,7 @@ export async function login(userInfo: UserLogin) {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: 'include', 
       body: JSON.stringify(userInfo),
     });
 

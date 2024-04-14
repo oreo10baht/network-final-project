@@ -30,6 +30,12 @@ const HomeNavBar = () => {
       >
         Pending
       </div>
+      <div
+        className="text-gray-400 font-medium rounded-lg px-2 py-1 hover:bg-gray-500 "
+        onClick={() => router.push("/direct")}
+      >
+        Direct
+      </div>
     </div>
   );
 };

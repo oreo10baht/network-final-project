@@ -2,7 +2,7 @@ import SidebarIcon from "./SidebarIcon";
 
 const Sidebar = () => {
   return (
-    <div className="overflow-auto no-scrollbar h-full md:h-screen w-16  bg-gray-900 top-0 left-0">
+    <div className="overflow-auto no-scrollbar h-screen w-16  bg-gray-900 top-0 left-0">
       <div className="  flex flex-col text-white  ">
         <SidebarIcon text="Home"></SidebarIcon>
         <Divider></Divider>
@@ -23,7 +23,6 @@ const Sidebar = () => {
         <SidebarIcon text="GR"></SidebarIcon>
         <SidebarIcon text="GR"></SidebarIcon>
         <SidebarIcon text="GR"></SidebarIcon>
- 
       </div>
     </div>
   );

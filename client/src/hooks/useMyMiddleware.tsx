@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 
 export function useMyMiddleware() {
   const router = useRouter();
-  const { token, setUser } = useAuthContext();
+  const {user, token } = useAuthContext();
   useEffect(() => {
     const getCurrentUser = async () => {
       const tokenCookie = await getTokenFromCookie();
@@ -22,10 +22,11 @@ export function useMyMiddleware() {
             setTokenInCookie(token.current);
           }
         }
-        const user = await getMe(token.current);
-        if (user) {
-          console.log(user, "from 2nd layout");
-          setUser(user);
+        const currentUser = await getMe(token.current);
+        if (currentUser) {
+          user.current = currentUser
+          console.log(user.current, "from 2nd layout");
+
         } else {
           router.push("/login");
           console.log("fail user");

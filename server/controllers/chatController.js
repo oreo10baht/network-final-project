@@ -105,7 +105,7 @@ exports.deleteChat = async (req, res) => {
 exports.addMemberToChat = async (req, res) => {
   const chatId = req.params.chatId;
   const memberId = req.body.memberId;
-  console.log(memberId);
+
   try {
     let chat = await Chat.findOne({ _id: chatId });
 
@@ -118,7 +118,7 @@ exports.addMemberToChat = async (req, res) => {
     }
 
     if (chat.type === "PRIVATE") {
-      return res.status(400).json("The chat is private chat");
+      return res.status(400).json("Cannot add member to private chat");
     }
 
     chat.members.push(memberId);
@@ -165,6 +165,71 @@ exports.removeMemberFromChat = async (req, res) => {
     res
       .status(200)
       .json({ message: "Member removed from the chat successfully", chat });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+
+exports.addMemberToRequestList = async (req, res) => {
+  const chatId = req.params.chatId;
+  const memberId = req.body.memberId;
+
+  try {
+    let chat = await Chat.findOne({ _id: chatId });
+
+    if (!chat) {
+      return res.status(404).json("Chat not found");
+    }
+
+    if (chat.requests.includes(memberId)) {
+      return res.status(400).json("Member already requested to join");
+    }
+
+    if (chat.type === "PRIVATE") {
+      return res.status(400).json("Cannot add member to private chat");
+    }
+
+    chat.requests.push(memberId);
+
+    chat = await chat.save();
+
+    res
+      .status(200)
+      .json({ message: "Member add to the request list successfully", chat });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+
+exports.removeMemberFromRequestList = async (req, res) => {
+  const chatId = req.params.chatId;
+  const memberId = req.params.memberId;
+
+  try {
+    let chat = await Chat.findOne({ _id: chatId });
+
+    if (!chat) {
+      return res.status(404).json({ message: "Chat not found" });
+    }
+
+    if (!chat.requests.includes(memberId)) {
+      return res
+        .status(400)
+        .json({ message: "Member does not exist in the request list" });
+    }
+
+    chat.requests.pull(memberId);
+
+    chat = await chat.save();
+
+    res
+      .status(200)
+      .json({
+        message: "Member removed from the request list successfully",
+        chat,
+      });
   } catch (error) {
     console.log(error);
     res.status(500).json(error);

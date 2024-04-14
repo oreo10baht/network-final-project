@@ -23,7 +23,7 @@ const All = () => {
       }
     };
     fetchUser();
-  }, []);
+  });
   return (
     <>
       {Users.length !== 0 ? (

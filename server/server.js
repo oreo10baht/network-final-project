@@ -21,11 +21,13 @@ app.use(express.json());
 const usersRouter = require("./routes/users");
 const friendsRouter = require("./routes/friends");
 const chatRoute = require("./routes/chats");
+const messageRoute = require("./routes/messages");
 
 connectDB();
 app.use("/api/users", usersRouter);
 app.use("/api/friends", friendsRouter);
 app.use("/api/chats", chatRoute);
+app.use("/api/messages", messageRoute);
 
 io.on("connection", (socket) => {
   console.log("a user connected:", socket.id);

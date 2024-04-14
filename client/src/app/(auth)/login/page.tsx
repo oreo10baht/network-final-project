@@ -8,7 +8,7 @@ import { useAuthContext } from "@/context/Auth";
 
 const Login = () => {
   const [tmpUser, setTmpUser] = useState<UserLogin>({} as UserLogin);
-  // const { token } = useAuthContext();
+  const { token } = useAuthContext();
 
   const router = useRouter();
 
@@ -23,7 +23,7 @@ const Login = () => {
     const res = await login(tmpUser);
     if (res) {
       console.log(res)
-      // token.current = res.token;
+      token.current = res.token;
       router.push("/home/all");
     }
   };

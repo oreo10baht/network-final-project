@@ -28,17 +28,19 @@ exports.getUserById = async (req, res) => {
       friends: user.friends,
       pendings: user.pendings,
       requests: user.requests,
+      user_id: user._id,
     };
     res.status(200).json(response);
   } catch (error) {
     console.error("Error fetching user by ID:");
+    console.log(req.params.id);
     res.status(500).json({ message: error.message });
   }
 };
 
 exports.getUserByName = async (req, res) => {
   try {
-    const username = req.body.username;
+    const username = req.params.username;
     const user = await User.findOne({ username });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -50,6 +52,7 @@ exports.getUserByName = async (req, res) => {
       friends: user.friends,
       pendings: user.pendings,
       requests: user.requests,
+      user_id: user._id,
     };
     res.status(200).json(response);
   } catch (error) {
@@ -69,6 +72,7 @@ exports.getAllUsers = async (req, res) => {
         friends: user.friends,
         pendings: user.pendings,
         requests: user.requests,
+        user_id: user._id,
       };
       return user;
     });

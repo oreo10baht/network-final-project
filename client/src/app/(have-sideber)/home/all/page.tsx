@@ -19,7 +19,6 @@ const All = () => {
       const users = await getAllUsers();
       if (users) {
         setUsers(users);
-        console.log(Users, "page all");
       }
     };
     fetchUser();

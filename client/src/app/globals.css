@@ -35,15 +35,15 @@
 
 
 .small-text {
-  @apply text-xs md:text-sm lg:text-base;
+  @apply text-sm lg:text-base;
 }
 
 .medium-text {
-  @apply text-base md:text-lg lg:text-xl;
+  @apply text-lg lg:text-xl;
 }
 
 .large-text {
-  @apply text-xl md:text-2xl lg:text-3xl;
+  @apply text-2xl lg:text-3xl;
 }
 
 

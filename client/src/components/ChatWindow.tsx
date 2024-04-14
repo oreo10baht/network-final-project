@@ -23,8 +23,8 @@ const ChatWindow = ({ username }: { username: string }) => {
   };
 
   return (
-    <div className="">
-      <div className="content-list bg-gray-700 mb-6 flex flex-col flex-grow h-[700px] overflow-y-auto">
+    <div className="w-full relative">
+      <div className="content-list bg-gray-700 mb-6 flex flex-col flex-grow w-full h-full overflow-y-auto">
         <Message
           name="Leon"
           timestamp="one week ago"
@@ -170,8 +170,8 @@ const ChatWindow = ({ username }: { username: string }) => {
 const BottomBar = () => (
   <div
     className="flex flex-row items-center justify-between 
-        w-full
-        ml-4 absolute bottom-6
+        
+         fixed bottom-6 left-20 right-14
         rounded-lg shadow-lg
         bg-gray-600 dark:bg-gray-600 px-2
         h-12"

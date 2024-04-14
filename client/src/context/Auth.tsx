@@ -14,13 +14,13 @@ import { UserMe } from "@/models/User";
 interface AuthContextType {
   user: UserMe | null;
   setUser: Dispatch<SetStateAction<UserMe | null>>;
-  // token: MutableRefObject<string>
+  token: MutableRefObject<string>
 }
 
 const AuthContext = createContext<AuthContextType>({
   user: null,
   setUser: (): UserMe | null => null,
-  // token: {current:""}
+  token: {current:""}
 });
 
 export const AuthContextProvider = ({
@@ -29,14 +29,14 @@ export const AuthContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [user, setUser] = useState<UserMe | null>(null);
-  // const token = useRef<string>("")
+  const token = useRef<string>("")
 
   return (
     <AuthContext.Provider
       value={{
         user,
         setUser,
-        // token,
+        token,
       }}
     >
       {children}

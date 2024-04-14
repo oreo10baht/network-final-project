@@ -24,10 +24,13 @@ exports.createChat = async (req, res) => {
       },
     });
 
-    if (chat) return res.status(400).json("Users already haved chat");
+    if (chat && req.body.type === "PRIVATE")
+      return res.status(400).json("Users already haved chat");
 
     const newChat = new Chat({
+      name: req.body.name,
       members: [firstUsername._id, secondUsername._id],
+      type: req.body.type,
     });
 
     const response = await newChat.save();
@@ -95,6 +98,75 @@ exports.deleteChat = async (req, res) => {
     res.status(200).json("Chat deleted successfully");
   } catch (error) {
     console.error(error);
+    res.status(500).json(error);
+  }
+};
+
+exports.addMemberToChat = async (req, res) => {
+  const chatId = req.params.chatId;
+  const memberId = req.body.memberId;
+  console.log(memberId);
+  try {
+    let chat = await Chat.findOne({ _id: chatId });
+
+    if (!chat) {
+      return res.status(404).json("Chat not found");
+    }
+
+    if (chat.members.includes(memberId)) {
+      return res.status(400).json("Member already exists in the chat");
+    }
+
+    if (chat.type === "PRIVATE") {
+      return res.status(400).json("The chat is private chat");
+    }
+
+    chat.members.push(memberId);
+
+    chat = await chat.save();
+
+    res
+      .status(200)
+      .json({ message: "Member add to the chat successfully", chat });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+
+exports.removeMemberFromChat = async (req, res) => {
+  const chatId = req.params.chatId;
+  const memberId = req.params.memberId;
+
+  try {
+    let chat = await Chat.findOne({ _id: chatId });
+
+    if (!chat) {
+      return res.status(404).json({ message: "Chat not found" });
+    }
+
+    if (!chat.members.includes(memberId)) {
+      return res
+        .status(400)
+        .json({ message: "Member does not exist in the chat" });
+    }
+
+    if (chat.members.length === 1) {
+      const deletedChat = await Chat.findByIdAndDelete(chatId);
+      return res
+        .status(200)
+        .json({ message: "Chat removed successfully (Removed last member)" });
+    }
+
+    chat.members.pull(memberId);
+
+    chat = await chat.save();
+
+    res
+      .status(200)
+      .json({ message: "Member removed from the chat successfully", chat });
+  } catch (error) {
+    console.log(error);
     res.status(500).json(error);
   }
 };

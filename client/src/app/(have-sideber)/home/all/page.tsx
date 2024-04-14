@@ -27,12 +27,12 @@ const All = () => {
       {Users.length !== 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 m-3">
           {Users.map((userNotMe: UserMe) => (
-            <UserBox user={userNotMe} key={userNotMe.username}>
+            <UserBox user={userNotMe} key={userNotMe.user_id}>
               {user.current?.friends &&
-              isFriend(userNotMe.username, user.current?.friends) ? (
-                <RemoveFriendBtn recipientName={userNotMe.username} />
+              isFriend(userNotMe.user_id, user.current?.friends) ? (
+                <RemoveFriendBtn recipientName={userNotMe.user_id} />
               ) : (
-                <AddFriendBtn recipientName={userNotMe.username} />
+                <AddFriendBtn recipientName={userNotMe.user_id} />
               )}
             </UserBox>
           ))}

@@ -31,10 +31,13 @@ app.use("/api/messages", messageRoute);
 
 io.on("connection", (socket) => {
   console.log("a user connected:", socket.id);
-  socket.on("send", (message) => {
-    socket.broadcast.emit("message", message);
-    // socket.broadcast.emit("message", socket.id);
-    console.log(message);
+  socket.on("join-room", (room) => {
+    socket.join(room);
+    console.log(room);
+  });
+  socket.on("send-message", (data) => {
+    socket.to(data.cid).emit("receive-message", data);
+    console.log(data);
   });
 });
 server.listen(PORT, () => {

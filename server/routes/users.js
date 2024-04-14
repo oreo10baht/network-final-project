@@ -14,6 +14,7 @@ router.get("/auth/me", authController.authenticateUser, (req, res) => {
   res.json({
     username: user.username,
     display_name: user.display_name,
+    user_id: user._id,
     image: user.image,
     friends: user.friends,
     pendings: user.pendings,

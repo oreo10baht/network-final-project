@@ -9,7 +9,6 @@ exports.createChat = async (req, res) => {
     const secondUsername = await User.findOne({
       username: req.body.secondUsername,
     });
-
     if (!firstUsername || !secondUsername) {
       return res.status(404).json("User not found.");
     }
@@ -224,12 +223,10 @@ exports.removeMemberFromRequestList = async (req, res) => {
 
     chat = await chat.save();
 
-    res
-      .status(200)
-      .json({
-        message: "Member removed from the request list successfully",
-        chat,
-      });
+    res.status(200).json({
+      message: "Member removed from the request list successfully",
+      chat,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json(error);

@@ -1,7 +1,7 @@
 export async function getChatById(cid: string) {
     try {
       const response = await fetch(
-        "http://localhost:8080/api/chats/" + cid,
+        `${process.env.backend}/api/chats/` + cid,
         {
           method: "GET",
         }

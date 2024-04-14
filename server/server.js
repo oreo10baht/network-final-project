@@ -30,13 +30,12 @@ app.use("/api/chats", chatRoute);
 app.use("/api/messages", messageRoute);
 
 io.on("connection", (socket) => {
-  console.log("a user connected:", socket.id);
   socket.on("join-room", (room) => {
     socket.join(room);
-    console.log(room);
+    console.log("a user connected:", socket.id, "to", room);
   });
   socket.on("send-message", (data) => {
-    socket.to(data.cid).emit("receive-message", data);
+    socket.to(data.chatId).emit("receive-message", data);
     console.log(data);
   });
 });

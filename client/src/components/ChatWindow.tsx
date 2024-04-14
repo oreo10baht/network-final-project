@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { BsPlusCircleFill } from "react-icons/bs";
 import { io } from "socket.io-client";
 import { getUserbyId } from "@/services/getUserbyId";
 import { getChatById } from "@/services/getChatById";
 import { getTokenFromCookie } from "@/services/getTokenFromCookie";
+import { getMe } from "@/services/getMe";
+import { postMessage, getMessagesByChatId } from "@/services/Messages";
+import { Message } from "./Message";
 
 interface Message {
-  user: string;
-  message: string;
-  timestamp: number;
-  cid: string;
+  chatId: string;
+  sender: string;
+  text: string;
+  createdAt: string;
 }
 
 const socket = io(`${process.env.backend}`);
@@ -20,57 +23,86 @@ const ChatWindow = ({ username }: { username: string }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [message, setMessage] = useState("");
   const [currentUser, setCurrentUser] = useState("");
-  const [room, setRoom] = useState("");
-
+  const messageListRef = useRef<HTMLDivElement>(null);
+  const scrollToBottom = () => {
+    const messageList = messageListRef.current;
+    if (messageList && messageList.lastElementChild) {
+      messageList.lastElementChild.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+      });
+    }
+  };
+  const formatTime = (time: string) => {
+    const formattedTime = new Date(time);
+    return formattedTime.toDateString();
+  };
   const handleSendMessage = (key: string) => {
     if (key == "Enter" && message != "") {
       const newMessage: Message = {
-        user: currentUser,
-        message: message,
-        timestamp: Date.now(),
-        cid: cid,
+        sender: currentUser,
+        text: message,
+        chatId: cid,
+        createdAt: Date.now().toString(),
       };
       socket.emit("send-message", newMessage);
       setMessage("");
       setMessages((prevMessages) => [...prevMessages, newMessage]);
-      console.log(newMessage);
+      createMessage(newMessage);
+    }
+  };
+
+  const createMessage = async (newMessage: Message) => {
+    try {
+      const response = await postMessage(newMessage);
+    } catch (error) {
+      console.log(error);
     }
   };
 
   const fetchChat = async () => {
     try {
       const cookie = await getTokenFromCookie();
-      console.log(cookie);
-      const chat = await getChatById(cid);
-      const u1 = await getUserbyId(chat.members[0]);
-      const u2 = await getUserbyId(chat.members[1]);
-      setRoom(cid);
-      setCurrentUser(u1.user_id);
-      console.log(u1);
-      console.log(u2);
+      const user = await getMe(cookie || "");
+      const messages = await getMessagesByChatId(cid);
+      console.log("fetch messages:", messages);
+      setMessages(messages);
+      setCurrentUser(user.user_id);
+      socket.emit("join-room", cid);
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
     fetchChat();
-    socket.emit("join-room", cid);
   }, []);
   useEffect(() => {
     socket.on("receive-message", (message: Message) => {
-      messages.push(message);
-      setMessages([...messages]);
       console.log("message:", message);
+      setMessages((prevMessages) => [...prevMessages, message]);
     });
+    scrollToBottom();
 
     return () => {
       socket.off("receive-message");
     };
-  }, [socket]);
+  }, [socket, messages]);
 
   return (
     <div className="w-full relative">
-      <div className="content-list bg-gray-700 mb-20 flex flex-col flex-grow w-full h-full overflow-y-auto"></div>
+      <div
+        ref={messageListRef}
+        className="content-list bg-gray-700 mb-20 flex flex-col flex-grow w-full h-full overflow-y-auto"
+      >
+        {messages.map((message) => (
+          <Message
+            key={message.createdAt}
+            name={message.sender}
+            timestamp={formatTime(message.createdAt)}
+            text={message.text}
+          />
+        ))}
+      </div>
       <BottomBar
         setMessage={setMessage}
         handleSend={handleSendMessage}
@@ -120,38 +152,6 @@ const BottomBar = ({
     />
   </div>
 );
-
-const Message = ({
-  name,
-  timestamp,
-  text,
-}: {
-  name: string;
-  timestamp: string;
-  text: string;
-}) => {
-  const seed = Math.round(Math.random() * 100);
-  return (
-    <div className="post mt-5">
-      <div className="avatar-wrapper flex ml-4 gap-4">
-        <Image
-          src={`https://picsum.photos/200`}
-          alt=""
-          width={40}
-          height={40}
-          className="avatar rounded-full"
-        />
-        <div className="post-content text-white">
-          <p className="post-owner">
-            {name}
-            <small className="timestamp ml-2 text-gray-400">{timestamp}</small>
-          </p>
-          <p className="post-text">{text}</p>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const PlusIcon = () => (
   <BsPlusCircleFill

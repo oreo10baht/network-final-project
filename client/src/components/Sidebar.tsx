@@ -6,7 +6,9 @@ import { PlusIcon, HomeIcon, DotFilledIcon } from "@radix-ui/react-icons";
 import { useState, useEffect } from "react";
 import { GetChat } from "@/models/Chat";
 import { useAuthContext } from "@/context/Auth";
-
+import { io } from "socket.io-client";
+import { updateStatus } from "@/services/updateStatus";
+const socket = io(`${process.env.backend}`);
 const Sidebar = () => {
   const { user } = useAuthContext();
   const [groupChats, setGroupChats] = useState<GetChat[]>([] as GetChat[]);
@@ -19,6 +21,20 @@ const Sidebar = () => {
     };
     allGroupChat();
   });
+  const updateUserStatus = async () => {
+    if (user) {
+      const res = await updateStatus(user?.username || "", 1);
+    }
+  };
+  useEffect(() => {
+    socket.emit("set-online", user?.username);
+    socket.on("set-offline", (data) => {});
+    updateUserStatus();
+  }, [user]);
+
+  window.onbeforeunload = function (e) {
+    socket.emit("set-offline", user?.username);
+  };
 
   return (
     <div className="overflow-auto no-scrollbar h-screen w-16 sticky bg-gray-900 top-0 left-0">

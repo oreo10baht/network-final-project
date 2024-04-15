@@ -5,6 +5,9 @@ import { UserLogin, User } from "@/models/User";
 import { useRouter } from "next/navigation";
 import { login } from "@/services/login";
 import { useAuthContext } from "@/context/Auth";
+import { io } from "socket.io-client";
+
+const socket = io(`${process.env.backend}`);
 
 const Login = () => {
   const [tmpUser, setTmpUser] = useState<UserLogin>({} as UserLogin);
@@ -24,7 +27,7 @@ const Login = () => {
     if (res) {
       console.log(res);
       token.current = res.token;
-      console.log(token.current)
+      console.log(token.current);
       router.push("/home/all");
     }
   };

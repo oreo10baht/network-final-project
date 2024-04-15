@@ -93,7 +93,6 @@ const ChatWindow = ({ username, cid }: { username: string; cid: string }) => {
       setMessages(messages);
       setCurrentUser(user.user_id);
       socket.emit("join-room", cid);
-      console.log(getCurrentTimestamp());
     } catch (error) {
       console.log(error);
     }

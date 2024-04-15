@@ -8,7 +8,7 @@ export interface User {
   pendings: string[]; //arr of uuser_id
   requests: string[]; //arr of uuser_id
   friends: string[]; //arr of uuser_id
-  status: string;
+  status: number;
 }
 
 export interface UserRegister {
@@ -31,6 +31,7 @@ export interface UserMe {
   pendings: string[]; //arr of uuser_id
   requests: string[]; //arr of uuser_id
   friends: string[]; //arr of uuser_id
+  status: number,
 }
 
 export interface CheckUser{

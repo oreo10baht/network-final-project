@@ -76,6 +76,7 @@ exports.getAllUsers = async (req, res) => {
         pendings: user.pendings,
         requests: user.requests,
         user_id: user._id,
+        status: user.status
       };
       return user;
     });
@@ -89,15 +90,11 @@ exports.getAllUsers = async (req, res) => {
 
 exports.updateUserStatus = async (req, res) => {
   try {
-    const userId = req.params.id;
+    const username = {username: req.body.username};
     const status = req.body.status;
-
-    if (!mongoose.Types.ObjectId.isValid(userId)) {
-      return res.status(400).json({ message: 'Invalid user ID' });
-    }
-    const updatedUser = await User.findByIdAndUpdate(
-      userId,
-      { status },
+    const updatedUser = await User.findOneAndUpdate(
+      username,
+      {status},
       { new: true }
     );
     if (!updatedUser) {

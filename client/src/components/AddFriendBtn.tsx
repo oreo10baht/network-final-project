@@ -11,14 +11,13 @@ const AddFriendBtn = ({ recipientName }: { recipientName: string }) => {
 
   const addfriend = async (e: any) => {
     e.preventDefault();
-
     const res = await addFriend(user!.username, recipientName);
     if (res) {
       setAdded(true);
       const currentUser: UserMe = await getMe(token.current);
       if (currentUser) {
         setUser(currentUser);
-        console.log(res, user, "test add");
+        // console.log(res, user, "test add");
       }
     }
   };

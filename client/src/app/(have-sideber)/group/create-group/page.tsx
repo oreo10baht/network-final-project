@@ -5,14 +5,34 @@ import { UserMe } from "@/models/User";
 import { getAllUsers } from "@/services/getAllUsers";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { createChat } from "@/services/Chats";
 const CreateGroupPage = () => {
   const router = useRouter();
   const [groupChat, setGroupChat] = useState<CreateChat>({} as CreateChat);
+  const [members, setMember] = useState<string[]>([]);
+  const [name, setName] = useState("");
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setGroupChat({
-      ...groupChat,
-      [e.target.name]: e.target.value,
-    });
+    const { checked, value } = e.target;
+    if (checked) {
+      setMember([...members, value]);
+    } else {
+      setMember(members.filter((item) => item !== value));
+    }
+  };
+  const handleNameChange = (e: any) => {
+    setName(e.target.value);
+  };
+  const createGroupChat = async () => {
+    const req = {
+      members: members,
+      type: "GROUP",
+      name: name,
+      firstUsername: members[0],
+      secondUsername: members[1],
+    };
+    console.log(req);
+    const response = createChat(req);
+    console.log(response);
   };
 
   const [Users, setUsers] = useState<UserMe[]>([] as UserMe[]);
@@ -39,7 +59,7 @@ const CreateGroupPage = () => {
             name="name"
             required
             className="flex rounded-lg p-1 text-gray-900"
-            onChange={handleFormChange}
+            onChange={handleNameChange}
           ></input>
         </div>
 
@@ -51,23 +71,33 @@ const CreateGroupPage = () => {
                 type="checkbox"
                 className="size-5"
                 value={user.user_id}
+                key={user.user_id}
+                onChange={(e) => {
+                  handleFormChange(e);
+                }}
               ></input>
             </UserBox>
           ))}
         </div>
         <div className="w-full flex flex-row justify-center my-5 gap-3">
           <button
-            type="submit"
+            type="button"
             className="font-medium small-text bg-green-600 text-gray-200 hover:bg-green-700 rounded-md px-3 py-1"
+            onClick={(e) => {
+              // e.preventDefault();
+              createGroupChat();
+              // router.push("/home/all");
+            }}
           >
             Confirm
           </button>
           <button
             className="font-medium small-text bg-gray-400 text-gray-800 hover:bg-gray-500 rounded-md px-3 py-1"
-            onClick={(e) =>{
-                e.preventDefault()
-                router.push("/home/all")
-            } }
+            onClick={(e) => {
+              e.preventDefault();
+              createGroupChat();
+              // router.push("/home/all");
+            }}
           >
             Cancel
           </button>

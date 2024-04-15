@@ -14,7 +14,9 @@ import { useMyMiddleware } from "@/hooks/useMyMiddleware";
 import { isMe } from "@/utils/isMe";
 import CancelFriendReqBtn from "@/components/CancelFriendReqBtn";
 import Header from "@/components/Header";
-
+import { io } from "socket.io-client";
+import { updateStatus } from "@/services/updateStatus";
+const socket = io(`${process.env.backend}`);
 const All = () => {
   useMyMiddleware();
   const [Users, setUsers] = useState<UserMe[]>([] as UserMe[]);
@@ -23,17 +25,27 @@ const All = () => {
     const fetchUser = async () => {
       const users = await getAllUsers();
       if (users) {
-        setUsers(users);
-        console.log(users, user);
+        setUsers((prevUser) => [...users]);
+        // console.log(users, user);
       }
     };
     fetchUser();
   });
+  const updateUserStatus = async () => {
+    if (user) {
+      const res = await updateStatus(user?.username || "", 1);
+    }
+  };
+  useEffect(() => {
+    socket.emit("set-online", user?.username);
+    socket.on("set-offline", (data) => {});
+    updateUserStatus();
+  }, [user]);
   return (
     <>
       {Users.length !== 0 ? (
         <div className="flex flex-col">
-          <Header text="All users in this app"/>
+          <Header text="All users in this app" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 m-3">
             {Users.map((userNotMe: UserMe) => (
               <>

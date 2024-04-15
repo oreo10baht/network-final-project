@@ -119,18 +119,12 @@ exports.getChat = async (req, res) => {
 };
 
 exports.getPrivateChatByUsername = async (req, res) => {
-  const firstId = req.body.firstId;
-  const secondId = req.body.secondId;
-  const firstUsername = req.body.firstUsername;
-  const secondUsername = req.body.secondUsername;
+  const firstUsername = req.params.firstUsername;
+  const secondUsername = req.params.secondUsername;
 
   try {
-    const firstUser = await User.findOne({
-      $or: [{ _id: firstId }, { username: firstUsername }],
-    });
-    const secondUser = await User.findOne({
-      $or: [{ _id: secondId }, { username: secondUsername }],
-    });
+    const firstUser = await User.findOne({ username: firstUsername });
+    const secondUser = await User.findOne({ username: secondUsername });
 
     if (!firstUser || !secondUser) {
       return res.status(404).json("User not found.");

@@ -23,8 +23,8 @@ export default function DirectMessage({ params }: { params: { id: string } }) {
   }, []);
   return (
     <>
-      {user.current ? <DirectNavBar username={user.current?.user_id} /> : null}
-      {user.current ? <ChatWindow username={user.current?.user_id} /> : null}
+      {user ? <DirectNavBar username={user?.user_id} /> : null}
+      {user ? <ChatWindow username={user?.user_id} /> : null}
     </>
   );
 }

@@ -14,8 +14,8 @@ const Friend = () => {
 
   useEffect(() => {
     const getFriends = async () => {
-      if (user.current) {
-        const friends: UserMe[] = await getUsersbyIds(user.current.friends);
+      if (user) {
+        const friends: UserMe[] = await getUsersbyIds(user.friends);
         if (friends) {
           setUsers(friends);
         }

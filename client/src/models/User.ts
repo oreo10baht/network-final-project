@@ -32,3 +32,8 @@ export interface UserMe {
   requests: string[]; //arr of uuser_id
   friends: string[]; //arr of uuser_id
 }
+
+export interface CheckUser{
+  user:UserMe;
+  token:string
+}

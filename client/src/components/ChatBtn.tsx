@@ -4,21 +4,23 @@ import { ChatBubbleIcon } from "@radix-ui/react-icons";
 import {
   createChat,
   getChatbyChatId,
+  getChats,
   getDirectChatByUsername,
 } from "@/services/Chats";
 import { useAuthContext } from "@/context/Auth";
 import { CreateChat } from "@/models/Chat";
-const ChatBtn = ({ path }: { path: string }) => {
+const ChatBtn = ({ friendUsername }: { friendUsername: string }) => {
   const { user } = useAuthContext();
   const router = useRouter();
   const handleChat = async () => {
-    if (user.current) {
-      const chat = await getDirectChatByUsername(path, user.current?.username);
+    if (user) {
+      console.log(friendUsername, user.username)
+      const chat = await getDirectChatByUsername(friendUsername, user?.username);
       console.log(chat, "1");
       if (chat===undefined) {
         const chatData: CreateChat = {
-          firstUsername: user.current.username,
-          secondUsername: path,
+          firstUsername: user.username,
+          secondUsername: friendUsername,
           type: "PRIVATE",
           name:""
         };

@@ -8,13 +8,11 @@ import { useRouter } from "next/navigation";
 
 export function useMyMiddleware() {
   const router = useRouter();
-  const {user, token } = useAuthContext();
+  const {user, token,setUser } = useAuthContext();
   useEffect(() => {
     const getCurrentUser = async () => {
       const tokenCookie = await getTokenFromCookie();
-      console.log(tokenCookie,"in my mid")
       if (tokenCookie) {
-        
         if (token.current !== tokenCookie) {
           console.log("token not same");
           if (token.current === "") {
@@ -26,8 +24,9 @@ export function useMyMiddleware() {
         }
         const currentUser = await getMe(token.current);
         if (currentUser) {
-          user.current = currentUser
-          console.log(user.current, "from my mid");
+          // user.current = currentUser
+          // console.log(user.current, "from 2nd layout");
+          setUser(currentUser)
 
         } else {
           router.push("/login");
@@ -36,10 +35,8 @@ export function useMyMiddleware() {
       } else {
         router.push("/login");
         console.log("fail no token in cookie");
-        // setTokenInCookie(token.current);
       }
     };
-    console.log("my mid run")
     getCurrentUser();
   },[]);
 }

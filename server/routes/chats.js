@@ -7,7 +7,10 @@ router.get("/all", chatController.getAllUserChats);
 router.get("/allgroup", chatController.getAllGroupChats);
 router.get("/users/:userId", chatController.getUserChatsByUserId);
 router.get("/:chatId", chatController.getChat);
-router.get("/", chatController.getPrivateChatByUsername);
+router.get(
+  "/:firstUsername/:secondUsername",
+  chatController.getPrivateChatByUsername
+);
 router.delete("/:chatId", chatController.deleteChat);
 
 router.patch("/:chatId", chatController.addMemberToChat);

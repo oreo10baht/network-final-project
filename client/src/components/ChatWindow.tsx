@@ -17,10 +17,10 @@ interface Message {
 }
 
 const socket = io(`${process.env.backend}`);
-const cid = "661bf32263b462f2bd389207";
+// const cid = "661bf32263b462f2bd389207";
 
-const ChatWindow = ({ username }: { username: string }) => {
-  const [messages, setMessages] = useState<Message[]>([]);
+const ChatWindow = ({ username, cid }: { username: string; cid: string }) => {
+  const [messages, setMessages] = useState<Message[] | null>([]);
   const [message, setMessage] = useState("");
   const [currentUser, setCurrentUser] = useState("");
   const messageListRef = useRef<HTMLDivElement>(null);
@@ -120,7 +120,7 @@ const ChatWindow = ({ username }: { username: string }) => {
           ref={messageListRef}
           className="content-list bg-gray-700 flex flex-col flex-grow w-full h-[calc(100% - 50px)] overflow-y-hidden z-0"
         >
-          {messages.map((message) => (
+          {messages?.map((message) => (
             <Message
               key={message.createdAt}
               name={message.sender}

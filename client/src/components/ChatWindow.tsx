@@ -33,17 +33,41 @@ const ChatWindow = ({ username }: { username: string }) => {
       });
     }
   };
+  function getCurrentTimestamp() {
+    const date = new Date();
+    const year = date.getUTCFullYear();
+    const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+    const day = String(date.getUTCDate()).padStart(2, "0");
+    const hours = String(date.getUTCHours()).padStart(2, "0");
+    const minutes = String(date.getUTCMinutes()).padStart(2, "0");
+    const seconds = String(date.getUTCSeconds()).padStart(2, "0");
+    const milliseconds = String(date.getUTCMilliseconds()).padStart(3, "0");
+
+    return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}Z`;
+  }
   const formatTime = (time: string) => {
     const formattedTime = new Date(time);
-    return formattedTime.toDateString();
+    const options = {
+      month: "2-digit",
+      day: "2-digit",
+      year: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    };
+    const formattedDateTime = new Intl.DateTimeFormat("en-US", options).format(
+      formattedTime
+    );
+    return formattedDateTime;
   };
+
   const handleSendMessage = (key: string) => {
     if (key == "Enter" && message != "") {
       const newMessage: Message = {
         sender: currentUser,
         text: message,
         chatId: cid,
-        createdAt: Date.now().toString(),
+        createdAt: getCurrentTimestamp(),
       };
       socket.emit("send-message", newMessage);
       setMessage("");
@@ -69,6 +93,7 @@ const ChatWindow = ({ username }: { username: string }) => {
       setMessages(messages);
       setCurrentUser(user.user_id);
       socket.emit("join-room", cid);
+      console.log(getCurrentTimestamp());
     } catch (error) {
       console.log(error);
     }
@@ -93,7 +118,7 @@ const ChatWindow = ({ username }: { username: string }) => {
       <div>
         <div
           ref={messageListRef}
-          className="content-list bg-gray-700 flex flex-col flex-grow w-full h-full overflow-y-hidden z-0"
+          className="content-list bg-gray-700 flex flex-col flex-grow w-full h-[calc(100% - 50px)] overflow-y-hidden z-0"
         >
           {messages.map((message) => (
             <Message

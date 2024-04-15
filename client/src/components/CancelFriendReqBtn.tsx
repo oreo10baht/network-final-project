@@ -5,14 +5,14 @@ import { cancelFriend } from "@/services/Friend";
 import { getMe } from "@/services/getMe";
 import { Cross2Icon, CheckIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
-const CancelFriendReqBtn = ({ recipientName }: { recipientName: string }) => {
+const CancelFriendReqBtn = ({requesterName, recipientName }: {requesterName:string, recipientName: string }) => {
   const { user, token, setUser } = useAuthContext();
   const [canceled, setcanceled] = useState<boolean>(false);
 
   const cancelfriend = async (e: any) => {
     e.preventDefault();
     if (user) {
-      const res = await cancelFriend(user.username, recipientName);
+      const res = await cancelFriend(requesterName, recipientName);
       if (res) {
         setcanceled(true);
         console.log(res);

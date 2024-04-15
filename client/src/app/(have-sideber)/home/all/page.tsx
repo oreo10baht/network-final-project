@@ -12,6 +12,7 @@ import { isPending } from "@/utils/isPending";
 import AcceptFriendBtn from "@/components/AcceptFriendBtn";
 import { useMyMiddleware } from "@/hooks/useMyMiddleware";
 import { isMe } from "@/utils/isMe";
+import CancelFriendReqBtn from "@/components/CancelFriendReqBtn";
 
 const All = () => {
   useMyMiddleware();
@@ -22,6 +23,7 @@ const All = () => {
       const users = await getAllUsers();
       if (users) {
         setUsers(users);
+        console.log(users, user);
       }
     };
     fetchUser();
@@ -42,9 +44,23 @@ const All = () => {
                       <>
                         {user?.pendings &&
                         isPending(userNotMe.user_id, user.pendings) ? (
-                          <AcceptFriendBtn recipientName={userNotMe.username} />
+                          <CancelFriendReqBtn
+                            requesterName={user.username}
+                            recipientName={userNotMe.username}
+                          />
                         ) : (
-                          <AddFriendBtn recipientName={userNotMe.username} />
+                          <>
+                            {user?.requests &&
+                            user.requests.includes(userNotMe.user_id) ? (
+                              <AcceptFriendBtn
+                                recipientName={userNotMe.username}
+                              />
+                            ) : (
+                              <AddFriendBtn
+                                recipientName={userNotMe.username}
+                              />
+                            )}
+                          </>
                         )}
                       </>
                     )}

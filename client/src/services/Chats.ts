@@ -35,16 +35,12 @@ export async function getDirectChatByUsername(
   secondUsername: string
 ) {
   try {
-    const response = await fetch(`${process.env.backend}/api/chats/`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        firstUsername: firstUsername,
-        secondUsername: secondUsername,
-      }),
-    });
+    const response = await fetch(
+      `${process.env.backend}/api/chats/${firstUsername}/${secondUsername}`,
+      {
+        method: "GET",
+      }
+    );
 
     if (!response.ok) {
       throw new Error("can't get chat");

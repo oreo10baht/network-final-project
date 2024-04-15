@@ -28,4 +28,5 @@ export interface CreateChat {
   secondUsername: string;
   type: ChatType;
   name?: string;
+  members:string[];
 }

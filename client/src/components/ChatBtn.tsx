@@ -18,11 +18,13 @@ const ChatBtn = ({ friendUsername }: { friendUsername: string }) => {
       const chat = await getDirectChatByUsername(friendUsername, user?.username);
       console.log(chat, "1");
       if (chat===undefined) {
+
         const chatData: CreateChat = {
           firstUsername: user.username,
           secondUsername: friendUsername,
           type: "PRIVATE",
-          name:""
+          name:"",
+          members:[user.username,friendUsername]
         };
         const newChat = await createChat(chatData);
         console.log(newChat, "2");

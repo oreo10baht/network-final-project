@@ -7,6 +7,7 @@ router.get("/", userController.getAllUsers);
 router.get("/name/:username", userController.getUserByName);
 router.get("/:id", userController.getUserById);
 router.delete("/", userController.deleteUser);
+router.put("/status", userController.updateUserStatus)
 
 //Authentication
 router.get("/auth/me", authController.authenticateUser, (req, res) => {

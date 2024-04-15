@@ -20,7 +20,7 @@ export interface GetChat {
   name?: string;
   members: string[];
   type: ChatType;
-  reqList: string[];
+  requests: string[];
 }
 
 export interface CreateChat{

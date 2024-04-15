@@ -84,3 +84,32 @@ exports.acceptFriend = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+exports.cancelFriendRequest = async (req, res) => {
+  try {
+    const requester = await User.findOne({ username: req.body.requesterName });
+    const recipient = await User.findOne({ username: req.body.recipientName });
+    if (!requester || !recipient) {
+      return res.status(404).json("User not found.");
+    }
+
+    if (
+      !requester.pendings.includes(recipient._id) ||
+      !recipient.requests.includes(requester._id)
+    ) {
+      return res.status(400).json("No friend request exists");
+    }
+    await User.findByIdAndUpdate(requester, {
+      $pull: { pendings: recipient._id },
+    });
+    await requester.save();
+    await User.findByIdAndUpdate(recipient, {
+      $pull: { requests: requester._id },
+    });
+    await recipient.save();
+    res.status(200).json({ message: "Friend request removed." });
+  } catch (error) {
+    console.error("Error accepting:", error.message);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};

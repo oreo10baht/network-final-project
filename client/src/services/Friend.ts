@@ -1,6 +1,6 @@
 export async function addFriend(requesterName: string, recipientName: string) {
   try {
-    const response = await fetch("http://localhost:8080/api/friends/add", {
+    const response = await fetch(`${process.env.backend}/api/friends/add`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -23,7 +23,7 @@ export async function addFriend(requesterName: string, recipientName: string) {
 
 export async function acceptFriend(requesterName: string, recipientName: string) {
   try {
-    const response = await fetch("http://localhost:8080/api/friends/accept", {
+    const response = await fetch(`${process.env.backend}/api/friends/accept`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -46,7 +46,7 @@ export async function acceptFriend(requesterName: string, recipientName: string)
 
 export async function removeFriend(requesterName: string, recipientName: string) {
   try {
-    const response = await fetch("http://localhost:8080/api/friends/remove", {
+    const response = await fetch(`${process.env.backend}/api/friends/remove`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

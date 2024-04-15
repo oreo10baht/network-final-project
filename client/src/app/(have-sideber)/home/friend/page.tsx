@@ -6,22 +6,23 @@ import Empty from "@/components/Empty";
 import UserBox from "@/components/๊UserBox";
 import RemoveFriendBtn from "@/components/RemoveFriendBtn";
 import { getUsersbyIds } from "@/utils/getUsersbyIds";
+import { useMyMiddleware } from "@/hooks/useMyMiddleware";
 const Friend = () => {
+  useMyMiddleware();
   const [Users, setUsers] = useState<UserMe[]>([] as UserMe[]);
   const { user } = useAuthContext();
 
   useEffect(() => {
     const getFriends = async () => {
-      if (user.current) {
-        const friends: UserMe[] = await getUsersbyIds(user.current.friends);        
-        if(friends){
-          setUsers(friends)
+      if (user) {
+        const friends: UserMe[] = await getUsersbyIds(user.friends);
+        if (friends) {
+          setUsers(friends);
         }
       }
     };
-    getFriends()
+    getFriends();
   });
-
 
   return (
     <>

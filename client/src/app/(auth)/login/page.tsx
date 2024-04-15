@@ -22,8 +22,9 @@ const Login = () => {
     e.preventDefault();
     const res = await login(tmpUser);
     if (res) {
-      console.log(res)
+      console.log(res);
       token.current = res.token;
+      console.log(token.current)
       router.push("/home/all");
     }
   };
@@ -50,7 +51,7 @@ const Login = () => {
           </label>
           <input
             id="password"
-            type="text"
+            type="password"
             name="password"
             required
             className="flex rounded-lg p-1"

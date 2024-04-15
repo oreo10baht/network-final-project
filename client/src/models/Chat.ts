@@ -7,7 +7,7 @@ interface Message {
 }
 
 export interface Chat {
-  chatId: string;
+  _id: string;
   name?: string;
   members: string[];
   type: ChatType;
@@ -16,16 +16,16 @@ export interface Chat {
 }
 
 export interface GetChat {
-  chatId: string;
+  _id: string;
   name?: string;
   members: string[];
   type: ChatType;
   requests: string[];
 }
 
-export interface CreateChat{
-  firstUsername:string,
-  secondUsername:string,
-  type:ChatType,
-  name?:string
+export interface CreateChat {
+  firstUsername: string;
+  secondUsername: string;
+  type: ChatType;
+  name?: string;
 }

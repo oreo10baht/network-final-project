@@ -2,11 +2,13 @@
 
 import { getGroupChats } from "@/services/Chats";
 import SidebarIcon from "./SidebarIcon";
-import { PlusIcon, HomeIcon } from "@radix-ui/react-icons";
+import { PlusIcon, HomeIcon, DotFilledIcon } from "@radix-ui/react-icons";
 import { useState, useEffect } from "react";
 import { GetChat } from "@/models/Chat";
+import { useAuthContext } from "@/context/Auth";
 
 const Sidebar = () => {
+  const { user } = useAuthContext();
   const [groupChats, setGroupChats] = useState<GetChat[]>([] as GetChat[]);
   useEffect(() => {
     const allGroupChat = async () => {
@@ -21,10 +23,10 @@ const Sidebar = () => {
   return (
     <div className="overflow-auto no-scrollbar h-screen w-16 sticky bg-gray-900 top-0 left-0">
       <div className="  flex flex-col text-white  ">
-        <SidebarIcon text="Home" pathOnClicked="/home/all">
+        <SidebarIcon pathOnClicked="/home/all">
           <HomeIcon className="size-6" />
         </SidebarIcon>
-        <SidebarIcon text="+" pathOnClicked="/group/create-group">
+        <SidebarIcon pathOnClicked="/group/create-group">
           <PlusIcon className="size-6" />
         </SidebarIcon>
         <Divider></Divider>
@@ -33,8 +35,12 @@ const Sidebar = () => {
           ? groupChats.map((groupChat: GetChat) => (
               <SidebarIcon
                 text={groupChat.name!}
-                pathOnClicked={"/group/" + groupChat.chatId}
-              ></SidebarIcon>
+                pathOnClicked={"/group/" + groupChat._id}
+              >
+                {user && groupChat.members.includes(user?.user_id) ? (
+                  <DotFilledIcon className="absolute top-0 right-0 size-4 m-0 p-0" />
+                ) : null}
+              </SidebarIcon>
             ))
           : null}
       </div>

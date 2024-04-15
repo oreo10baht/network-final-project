@@ -27,8 +27,6 @@ const CreateGroupPage = () => {
       members: members,
       type: "GROUP",
       name: name,
-      firstUsername: members[0],
-      secondUsername: members[1],
     };
     console.log(req);
     const response = createChat(req);
@@ -70,7 +68,7 @@ const CreateGroupPage = () => {
               <input
                 type="checkbox"
                 className="size-5"
-                value={user.user_id}
+                value={user.username}
                 key={user.user_id}
                 onChange={(e) => {
                   handleFormChange(e);

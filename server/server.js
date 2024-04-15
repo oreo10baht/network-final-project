@@ -57,7 +57,8 @@ io.on("connection", (socket) => {
     // console.log(data);
   });
   socket.on("disconnect", () => {
-    console.log("Connection Lost", socket.id)});
+    // console.log("Connection Lost", socket.id)
+  });
     
 });
 server.listen(PORT, () => {

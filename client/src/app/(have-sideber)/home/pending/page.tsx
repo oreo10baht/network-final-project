@@ -7,6 +7,7 @@ import { getUsersbyIds } from "@/utils/getUsersbyIds";
 import UserBox from "@/components/๊UserBox";
 import { useMyMiddleware } from "@/hooks/useMyMiddleware";
 import CancelFriendReqBtn from "@/components/CancelFriendReqBtn";
+import Header from "@/components/Header";
 
 const Pending = () => {
   useMyMiddleware();
@@ -28,15 +29,18 @@ const Pending = () => {
   return (
     <>
       {Users.length !== 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 m-3">
-          {Users.map((userNotme: UserMe) => (
-            <UserBox user={userNotme} key={userNotme.username}>
-              <CancelFriendReqBtn
-                requesterName={user!.username}
-                recipientName={userNotme.username}
-              />
-            </UserBox>
-          ))}
+        <div className="flex flex-col">
+          <Header text="All users that you send friend request" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 m-3">
+            {Users.map((userNotme: UserMe) => (
+              <UserBox user={userNotme} key={userNotme.username}>
+                <CancelFriendReqBtn
+                  requesterName={user!.username}
+                  recipientName={userNotme.username}
+                />
+              </UserBox>
+            ))}
+          </div>
         </div>
       ) : (
         <Empty text="no pending users"></Empty>

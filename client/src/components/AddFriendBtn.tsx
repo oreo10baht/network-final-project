@@ -17,7 +17,6 @@ const AddFriendBtn = ({ recipientName }: { recipientName: string }) => {
       const currentUser: UserMe = await getMe(token.current);
       if (currentUser) {
         setUser(currentUser);
-        // console.log(res, user, "test add");
       }
     }
   };

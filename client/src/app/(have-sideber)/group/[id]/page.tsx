@@ -3,11 +3,7 @@ import ChatWindow from "@/components/ChatWindow";
 import GroupNavBar from "@/components/GroupNavBar";
 import { Chat } from "@/models/Chat";
 import { getChatbyChatId } from "@/services/Chats";
-import { getChatById } from "@/services/getChatById";
 import { useMyMiddleware } from "@/hooks/useMyMiddleware";
-
-import { getUserbyUsername } from "@/services/getUserbyUsername";
-import { get } from "http";
 import { useState, useEffect } from "react";
 import { useAuthContext } from "@/context/Auth";
 

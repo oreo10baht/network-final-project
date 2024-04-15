@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 import { createChat } from "@/services/Chats";
 const CreateGroupPage = () => {
   const router = useRouter();
-  const [groupChat, setGroupChat] = useState<CreateChat>({} as CreateChat);
   const [members, setMember] = useState<string[]>([]);
   const [name, setName] = useState("");
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,9 +27,7 @@ const CreateGroupPage = () => {
       type: "GROUP",
       name: name,
     };
-    console.log(req);
     const response = createChat(req);
-    console.log(response);
   };
 
   const [Users, setUsers] = useState<UserMe[]>([] as UserMe[]);

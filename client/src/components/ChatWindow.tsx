@@ -1,9 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import Image from "next/image";
 import { BsPlusCircleFill } from "react-icons/bs";
 import { io } from "socket.io-client";
-import { getUserbyId } from "@/services/getUserbyId";
-import { getChatById } from "@/services/getChatById";
 import { getTokenFromCookie } from "@/services/getTokenFromCookie";
 import { getMe } from "@/services/getMe";
 import { postMessage, getMessagesByChatId } from "@/services/Messages";
@@ -17,8 +14,6 @@ interface Message {
 }
 
 const socket = io(`${process.env.backend}`);
-// const cid = "661bf32263b462f2bd389207";
-
 const ChatWindow = ({ username, cid }: { username: string; cid: string }) => {
   const [messages, setMessages] = useState<Message[] | null>([]);
   const [message, setMessage] = useState("");
@@ -164,10 +159,6 @@ const BottomBar = ({
             text-gray-400  dark:text-gray-400 placeholder-gray-400
             cursor-text"
       value={message}
-      // onSubmit={(e) => {
-      //   e.preventDefault();
-      //   console.log(e.target.value);
-      // }}
       onChange={(e) => {
         setMessage(e.target.value);
       }}

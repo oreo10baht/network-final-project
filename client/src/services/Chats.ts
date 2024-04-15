@@ -1,5 +1,3 @@
-import { CreateChat } from "@/models/Chat";
-
 export async function getChats() {
   try {
     const response = await fetch(`${process.env.backend}/api/chats/all`, {
@@ -66,7 +64,7 @@ export async function getChatbyChatId(chatId: string) {
   }
 }
 
-export async function createChat(chat: CreateChat) {
+export async function createChat(chat: any) {
   try {
     const response = await fetch(`${process.env.backend}/api/chats/`, {
       method: "POST",

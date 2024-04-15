@@ -89,25 +89,27 @@ const ChatWindow = ({ username }: { username: string }) => {
   }, [socket, messages]);
 
   return (
-    <div className="w-full relative">
-      <div
-        ref={messageListRef}
-        className="content-list bg-gray-700 mb-20 flex flex-col flex-grow w-full h-full overflow-y-auto"
-      >
-        {messages.map((message) => (
-          <Message
-            key={message.createdAt}
-            name={message.sender}
-            timestamp={formatTime(message.createdAt)}
-            text={message.text}
-          />
-        ))}
+    <div className="w-full relative mt-12 mb-20">
+      <div>
+        <div
+          ref={messageListRef}
+          className="content-list bg-gray-700 flex flex-col flex-grow w-full h-full overflow-y-hidden z-0"
+        >
+          {messages.map((message) => (
+            <Message
+              key={message.createdAt}
+              name={message.sender}
+              timestamp={formatTime(message.createdAt)}
+              text={message.text}
+            />
+          ))}
+        </div>
+        <BottomBar
+          setMessage={setMessage}
+          handleSend={handleSendMessage}
+          message={message}
+        />
       </div>
-      <BottomBar
-        setMessage={setMessage}
-        handleSend={handleSendMessage}
-        message={message}
-      />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import ProfileImage from "./ProfileImage";
 import { useState, useEffect } from "react";
 import { getUserbyId } from "@/services/getUserbyId";
 export const Message = ({
@@ -21,13 +21,9 @@ export const Message = ({
   return (
     <div className="post mt-5">
       <div className="avatar-wrapper flex ml-4 gap-4">
-        <Image
-          src={`https://picsum.photos/200`}
-          alt=""
-          width={40}
-          height={40}
-          className="avatar rounded-full"
-        />
+        <div className="w-12 h-12">
+          <ProfileImage src={`https://picsum.photos/200`} />
+        </div>
         <div className="post-content text-white">
           <p className="post-owner">
             {displayName}

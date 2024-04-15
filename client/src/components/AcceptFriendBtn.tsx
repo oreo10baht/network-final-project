@@ -5,6 +5,7 @@ import { acceptFriend } from "@/services/Friend";
 import { getMe } from "@/services/getMe";
 import { PlusIcon, CheckIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
+import CancelFriendReqBtn from "./CancelFriendReqBtn";
 
 const AcceptFriendBtn = ({ recipientName }: { recipientName: string }) => {
   const { user, token, setUser } = useAuthContext();
@@ -19,13 +20,13 @@ const AcceptFriendBtn = ({ recipientName }: { recipientName: string }) => {
         console.log(res);
         const currentUser: UserMe = await getMe(token.current);
         if (currentUser) {
-          setUser(currentUser)
+          setUser(currentUser);
         }
       }
     }
   };
   return (
-    <div>
+    <div className="flex flex-row gap-4">
       <button
         className="rounded-full bg-gray-600 p-1 size-8 flex justify-center items-center"
         onClick={acceptfriend}
@@ -36,6 +37,7 @@ const AcceptFriendBtn = ({ recipientName }: { recipientName: string }) => {
           <PlusIcon className="size-32 text-gray-400" />
         )}
       </button>
+      <CancelFriendReqBtn recipientName={recipientName} />
     </div>
   );
 };

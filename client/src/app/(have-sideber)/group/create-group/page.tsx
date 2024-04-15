@@ -64,7 +64,10 @@ const CreateGroupPage = () => {
           </button>
           <button
             className="font-medium small-text bg-gray-400 text-gray-800 hover:bg-gray-500 rounded-md px-3 py-1"
-            onClick={() => router.push("/home/all")}
+            onClick={(e) =>{
+                e.preventDefault()
+                router.push("/home/all")
+            } }
           >
             Cancel
           </button>

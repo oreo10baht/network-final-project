@@ -11,6 +11,7 @@ import RemoveFriendBtn from "@/components/RemoveFriendBtn";
 import { isPending } from "@/utils/isPending";
 import AcceptFriendBtn from "@/components/AcceptFriendBtn";
 import { useMyMiddleware } from "@/hooks/useMyMiddleware";
+import { isMe } from "@/utils/isMe";
 
 const All = () => {
   useMyMiddleware();
@@ -30,21 +31,27 @@ const All = () => {
       {Users.length !== 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 m-3">
           {Users.map((userNotMe: UserMe) => (
-            <UserBox user={userNotMe} key={userNotMe.user_id}>
-              {user?.friends &&
-              isFriend(userNotMe.user_id, user.friends) ? (
-                <RemoveFriendBtn recipientName={userNotMe.username} />
-              ) : (
+            <>
+              {user && !isMe(userNotMe, user) ? (
                 <>
-                  {user?.pendings &&
-                  isPending(userNotMe.user_id, user.pendings) ? (
-                    <AcceptFriendBtn recipientName={userNotMe.username} />
-                  ) : (
-                    <AddFriendBtn recipientName={userNotMe.username} />
-                  )}
+                  <UserBox user={userNotMe} key={userNotMe.user_id}>
+                    {user?.friends &&
+                    isFriend(userNotMe.user_id, user.friends) ? (
+                      <RemoveFriendBtn recipientName={userNotMe.username} />
+                    ) : (
+                      <>
+                        {user?.pendings &&
+                        isPending(userNotMe.user_id, user.pendings) ? (
+                          <AcceptFriendBtn recipientName={userNotMe.username} />
+                        ) : (
+                          <AddFriendBtn recipientName={userNotMe.username} />
+                        )}
+                      </>
+                    )}
+                  </UserBox>
                 </>
-              )}
-            </UserBox>
+              ) : null}
+            </>
           ))}
         </div>
       ) : (

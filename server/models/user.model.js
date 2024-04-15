@@ -25,6 +25,11 @@ const UserSchema = mongoose.Schema(
       type: String,
       required: false,
     },
+    status: {
+      type:Number,
+      default: 0,
+      //0 offline, 1 online
+    },
     friends: [{ type: mongoose.Schema.Types.ObjectId, ref: "Users" }],
     pendings: [{ type: mongoose.Schema.Types.ObjectId, ref: "Users" }],
     requests: [{ type: mongoose.Schema.Types.ObjectId, ref: "Users" }],

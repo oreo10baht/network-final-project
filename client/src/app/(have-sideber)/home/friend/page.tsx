@@ -15,15 +15,14 @@ const Friend = () => {
   useEffect(() => {
     const getFriends = async () => {
       if (user.current) {
-        const friends: UserMe[] = await getUsersbyIds(user.current.friends);        
-        if(friends){
-          setUsers(friends)
+        const friends: UserMe[] = await getUsersbyIds(user.current.friends);
+        if (friends) {
+          setUsers(friends);
         }
       }
     };
-    getFriends()
+    getFriends();
   });
-
 
   return (
     <>

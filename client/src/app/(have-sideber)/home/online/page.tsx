@@ -5,6 +5,7 @@ import { UserMe } from "@/models/User";
 import Empty from "@/components/Empty";
 import UserBox from "@/components/๊UserBox";
 import AddFriendBtn from "@/components/AddFriendBtn";
+import { getAllUsers } from "@/services/getAllUsers";
 import { useMyMiddleware } from "@/hooks/useMyMiddleware";
 
 const Online = () => {

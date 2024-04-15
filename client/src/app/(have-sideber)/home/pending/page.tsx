@@ -6,14 +6,20 @@ import Empty from "@/components/Empty";
 import { getUsersbyIds } from "@/utils/getUsersbyIds";
 import UserBox from "@/components/๊UserBox";
 import AcceptFriendBtn from "@/components/AcceptFriendBtn";
+import { useMyMiddleware } from "@/hooks/useMyMiddleware";
+import { revalidateMe } from "@/utils/revalidateMe";
+import { useRouter } from "next/navigation";
 
 const Pending = () => {
-  const { user } = useAuthContext();
+  useMyMiddleware();
+
+  const { user, token } = useAuthContext();
   const [Users, setUsers] = useState<UserMe[]>([] as UserMe[]);
   useEffect(() => {
     const getPenUsers = async () => {
-      if (user.current) {
-        const penUsers: UserMe[] = await getUsersbyIds(user.current.pendings);
+      // console.log(user, "in get pen", token);
+      if (user) {
+        const penUsers: UserMe[] = await getUsersbyIds(user.pendings);
         if (penUsers) {
           setUsers(penUsers);
         }
@@ -28,7 +34,7 @@ const Pending = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 m-3">
           {Users.map((user: UserMe) => (
             <UserBox user={user} key={user.username}>
-              <AcceptFriendBtn recipientName={user.username}/>
+              <AcceptFriendBtn recipientName={user.username} />
             </UserBox>
           ))}
         </div>

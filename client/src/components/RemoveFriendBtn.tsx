@@ -8,24 +8,25 @@ import { useState } from "react";
 import ChatBtn from "./ChatBtn";
 
 const RemoveFriendBtn = ({ recipientName }: { recipientName: string }) => {
-  const { user, token } = useAuthContext();
+  const { user, token ,setUser} = useAuthContext();
   const [removed, setremoved] = useState<boolean>(false);
 
   const removefriend = async (e: any) => {
     e.preventDefault();
-    const res = await removeFriend(user.current!.username, recipientName);
+    const res = await removeFriend(user!.username, recipientName);
     if (res) {
       setremoved(true);
       console.log(res, "friend removed");
       const currentUser: UserMe = await getMe(token.current);
       if (currentUser) {
-        user.current = currentUser;
+        setUser(currentUser)
       }
     }
   };
+
   return (
     <div className="flex flex-row gap-4">
-      <ChatBtn path={recipientName}></ChatBtn>
+      <ChatBtn friendUsername={recipientName}></ChatBtn>
       <button
         className="rounded-full bg-gray-600 p-1 size-8 flex justify-center items-center"
         onClick={removefriend}

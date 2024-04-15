@@ -29,20 +29,20 @@ app.use("/api/friends", friendsRouter);
 app.use("/api/chats", chatRoute);
 app.use("/api/messages", messageRoute);
 
-io.on("connection", (socket) => {
-  socket.emit("set-online", data) //when user connects
-  socket.on("join-room", (room) => {
-    socket.join(room);
-    console.log("a user connected:", socket.id, "to", room);
-  });
-  socket.on("send-message", (data) => {
-    socket.to(data.chatId).emit("receive-message", data);
-    console.log(data);
-  });
-  socket.on("disconnect", () => {
-    console.log("Connection Lost", socket.id)});
-    socket.emit("set-offline", data) //when a user disconnects
-});
+// io.on("connection", (socket) => {
+//   socket.emit("set-online", data) //when user connects
+//   socket.on("join-room", (room) => {
+//     socket.join(room);
+//     console.log("a user connected:", socket.id, "to", room);
+//   });
+//   socket.on("send-message", (data) => {
+//     socket.to(data.chatId).emit("receive-message", data);
+//     console.log(data);
+//   });
+//   socket.on("disconnect", () => {
+//     console.log("Connection Lost", socket.id)});
+//     socket.emit("set-offline", data) //when a user disconnects
+// });
 server.listen(PORT, () => {
   console.log(`Server started on ${PORT}`);
 });

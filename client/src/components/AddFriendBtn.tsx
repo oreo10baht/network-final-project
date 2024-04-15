@@ -6,18 +6,19 @@ import { getMe } from "@/services/getMe";
 import { useState } from "react";
 
 const AddFriendBtn = ({ recipientName }: { recipientName: string }) => {
-  const { user ,token} = useAuthContext();
+  const { user ,token,setUser} = useAuthContext();
   const [added, setAdded] = useState<boolean>(false);
 
   const addfriend = async (e: any) => {
     e.preventDefault();
-    const res = await addFriend(user.current!.username, recipientName);
+
+    const res = await addFriend(user!.username, recipientName);
     if (res) {
       setAdded(true);
       console.log(res);
       const currentUser:UserMe = await getMe(token.current)
       if(currentUser){
-        user.current = currentUser
+        setUser(currentUser)
       }
     }
   };

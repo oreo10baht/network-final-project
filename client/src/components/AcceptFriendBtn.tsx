@@ -7,18 +7,20 @@ import { PlusIcon, CheckIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
 
 const AcceptFriendBtn = ({ recipientName }: { recipientName: string }) => {
-  const { user ,token} = useAuthContext();
+  const { user, token, setUser } = useAuthContext();
   const [accepted, setaccepted] = useState<boolean>(false);
 
   const acceptfriend = async (e: any) => {
     e.preventDefault();
-    const res = await acceptFriend(user.current!.username, recipientName);
-    if (res) {
-      setaccepted(true);
-      console.log(res);
-      const currentUser:UserMe = await getMe(token.current)
-      if(currentUser){
-        user.current = currentUser
+    if (user) {
+      const res = await acceptFriend(user.username, recipientName);
+      if (res) {
+        setaccepted(true);
+        console.log(res);
+        const currentUser: UserMe = await getMe(token.current);
+        if (currentUser) {
+          setUser(currentUser)
+        }
       }
     }
   };

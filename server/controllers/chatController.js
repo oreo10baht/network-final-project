@@ -2,6 +2,7 @@ const Chat = require("../models/chat.model");
 const User = require("../models/user.model.js");
 
 exports.createChat = async (req, res) => {
+
   const membersUsername = req.body.members;
   const userIds = [];
   let members = [];

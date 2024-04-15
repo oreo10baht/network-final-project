@@ -26,7 +26,7 @@ const SidebarIcon = ({
               <Image src={iconSrc} fill={true} alt="icon"></Image>
             </div>
           ) : (
-            text
+            text.slice(0,2)
           )}
         </>
       )}

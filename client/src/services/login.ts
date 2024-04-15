@@ -2,11 +2,12 @@ import { UserLogin } from "@/models/User";
 
 export async function login(userInfo: UserLogin) {
   try {
-    const response = await fetch("http://localhost:8080/api/users/login", {
+    const response = await fetch(`${process.env.backend}/api/users/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: 'include', 
       body: JSON.stringify(userInfo),
     });
 

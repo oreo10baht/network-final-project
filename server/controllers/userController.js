@@ -29,6 +29,7 @@ exports.getUserById = async (req, res) => {
       pendings: user.pendings,
       requests: user.requests,
       user_id: user._id,
+      status: user.status,
     };
     res.status(200).json(response);
   } catch (error) {
@@ -53,6 +54,8 @@ exports.getUserByName = async (req, res) => {
       pendings: user.pendings,
       requests: user.requests,
       user_id: user._id,
+      status:user.status,
+
     };
     res.status(200).json(response);
   } catch (error) {
@@ -83,3 +86,28 @@ exports.getAllUsers = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+exports.updateUserStatus = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const status = req.body.status;
+
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ message: 'Invalid user ID' });
+    }
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { status },
+      { new: true }
+    );
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.error("Error updating user status:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+

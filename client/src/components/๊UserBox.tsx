@@ -4,11 +4,9 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import AddFriendBtn from "./AddFriendBtn";
 const UserBox = ({ user,children }: { user: UserMe ,children:React.ReactNode}) => {
-  const router = useRouter();
   return (
     <div
       className="w-full h-16 bg-gray-700 rounded-lg  border-gray-500 border-2 flex p-2 hover:bg-gray-500"
-      // onClick={() => router.push("/home/direct" + user.username)}
     >
       <div className="flex flex-row justify-between items-center w-full">
         <div className="flex flex-row items-center gap-2">

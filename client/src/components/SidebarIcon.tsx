@@ -8,7 +8,7 @@ const SidebarIcon = ({
   iconSrc,
   children,
 }: {
-  text: string;
+  text?: string;
   pathOnClicked: string;
   iconSrc?: string;
   children?: ReactNode;
@@ -17,19 +17,14 @@ const SidebarIcon = ({
 
   return (
     <div className="sidebar-icon " onClick={() => router.push(pathOnClicked)}>
-      {children ? (
-        children
+      {iconSrc ? (
+        <div className="size-5 rounded-full ">
+          <Image src={iconSrc} fill={true} alt="icon"></Image>
+        </div>
       ) : (
-        <>
-          {iconSrc ? (
-            <div className="size-5 rounded-full ">
-              <Image src={iconSrc} fill={true} alt="icon"></Image>
-            </div>
-          ) : (
-            text.slice(0,2)
-          )}
-        </>
+        text?.slice(0, 2)
       )}
+      {children}
     </div>
   );
 };

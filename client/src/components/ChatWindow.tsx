@@ -114,7 +114,7 @@ const ChatWindow = ({ username }: { username: string }) => {
   }, [socket, messages]);
 
   return (
-    <div className="w-full relative mt-12 mb-20">
+    <div className="w-full  mt-12 mb-20">
       <div>
         <div
           ref={messageListRef}
@@ -149,8 +149,7 @@ const BottomBar = ({
   message: string;
 }) => (
   <div
-    className="flex flex-row items-center justify-between 
-        
+    className="flex flex-row items-center justify-between w-2/3
          fixed bottom-6 left-20 right-14
         rounded-lg shadow-lg
         bg-gray-600 dark:bg-gray-600 px-2

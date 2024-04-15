@@ -15,6 +15,21 @@ export async function getChats() {
   }
 }
 
+export async function getGroupChats() {
+  try {
+    const response = await fetch(`${process.env.backend}/api/chats/allgroup`, {
+      method: "GET",
+    });
+
+    if (!response.ok) {
+      throw new Error("can't get all group chats");
+    }
+    return response.json();
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export async function getDirectChatByUsername(
   firstUsername: string,
   secondUsername: string

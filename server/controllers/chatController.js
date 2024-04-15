@@ -2,33 +2,58 @@ const Chat = require("../models/chat.model");
 const User = require("../models/user.model.js");
 
 exports.createChat = async (req, res) => {
+
+  const membersUsername = req.body.members;
+  const userIds = [];
+  let members = [];
+
   try {
-    const firstUsername = await User.findOne({
-      username: req.body.firstUsername,
-    });
-    const secondUsername = await User.findOne({
-      username: req.body.secondUsername,
-    });
-    if (!firstUsername || !secondUsername) {
-      return res.status(404).json("User not found.");
+    for (const username of membersUsername) {
+      const user = await User.findOne({ username: username });
+      if (!user) {
+        return res.status(404).json("User not found");
+      }
+      userIds.push(user._id);
     }
+    if (userIds.length === 0) {
+      const firstUsername = await User.findOne({
+        username: req.body.firstUsername,
+      });
+      const secondUsername = await User.findOne({
+        username: req.body.secondUsername,
+      });
 
-    if (firstUsername._id.toString() === secondUsername._id.toString()) {
-      return res.status(400).json("User is the same person");
+      if (!firstUsername || !secondUsername) {
+        return res.status(404).json("User not found");
+      }
+
+      if (firstUsername._id.toString() === secondUsername._id.toString()) {
+        return res.status(400).json("User is the same person");
+      }
+
+      const chat = await Chat.findOne({
+        members: {
+          $all: [firstUsername._id, secondUsername._id],
+        },
+      });
+
+      if (chat && req.body.type === "PRIVATE")
+        return res.status(400).json("Users already haved chat");
+
+      members = [firstUsername._id, secondUsername._id];
+    } else {
+      const userIdStrings = userIds.map((id) => id.toString());
+      const userIdSet = new Set(userIdStrings);
+
+      if (userIdSet.size !== userIds.length) {
+        return res.status(400).json({ message: "Duplicate users detected" });
+      }
+      members = userIds;
     }
-
-    const chat = await Chat.findOne({
-      members: {
-        $all: [firstUsername._id, secondUsername._id],
-      },
-    });
-
-    if (chat && req.body.type === "PRIVATE")
-      return res.status(400).json("Users already haved chat");
 
     const newChat = new Chat({
       name: req.body.name,
-      members: [firstUsername._id, secondUsername._id],
+      members: members,
       type: req.body.type,
     });
 

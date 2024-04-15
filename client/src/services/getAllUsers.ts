@@ -1,6 +1,6 @@
 export async function getAllUsers() {
   try {
-    const response = await fetch("http://localhost:8080/api/users/", {
+    const response = await fetch(`${process.env.backend}/api/users/`, {
       method: "GET",
     });
 

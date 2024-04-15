@@ -1,15 +1,26 @@
 import { CreateChat } from "@/models/Chat";
 
-// export async function getAllUserChats(params:type) {
+export async function getChats() {
+  try {
+    const response = await fetch(`${process.env.backend}/api/chats/all`, {
+      method: "GET",
+    });
 
-// }
+    if (!response.ok) {
+      throw new Error("can't get all chats");
+    }
+    return response.json();
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 export async function getDirectChatByUsername(
   firstUsername: string,
   secondUsername: string
 ) {
   try {
-    const response = await fetch("http://localhost:8080/api/chats/", {
+    const response = await fetch(`${process.env.backend}/api/chats/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -31,7 +42,7 @@ export async function getDirectChatByUsername(
 
 export async function getChatbyChatId(chatId: string) {
   try {
-    const response = await fetch("http://localhost:8080/api/chats/" + chatId, {
+    const response = await fetch(`${process.env.backend}/api/chats/${chatId}`, {
       method: "GET",
     });
 
@@ -44,9 +55,9 @@ export async function getChatbyChatId(chatId: string) {
   }
 }
 
-export async function createChat(chat:CreateChat) {
+export async function createChat(chat: CreateChat) {
   try {
-    const response = await fetch("http://localhost:8080/api/chats/", {
+    const response = await fetch(`${process.env.backend}/api/chats/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

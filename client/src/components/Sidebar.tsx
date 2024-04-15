@@ -35,7 +35,7 @@ const Sidebar = () => {
           ? groupChats.map((groupChat: GetChat) => (
               <SidebarIcon
                 text={groupChat.name!}
-                pathOnClicked={"/group/" + groupChat.chatId}
+                pathOnClicked={"/group/" + groupChat._id}
               >
                 {user && groupChat.members.includes(user?.user_id) ? (
                   <DotFilledIcon className="absolute top-0 right-0 size-4 m-0 p-0" />

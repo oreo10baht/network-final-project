@@ -28,11 +28,11 @@ const ChatBtn = ({ friendUsername }: { friendUsername: string }) => {
         console.log(newChat, "2");
 
         if (newChat) {
-          router.push("/direct/" + newChat.id);
+          router.push("/direct/" + newChat._id);
         }
         console.log("cant create chat");
       } else {
-        router.push("/direct/" + chat.id);
+        router.push("/direct/" + chat._id);
       }
     }
   };

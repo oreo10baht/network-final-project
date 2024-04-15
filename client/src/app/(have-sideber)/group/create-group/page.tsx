@@ -1,6 +1,5 @@
 "use client";
 import UserBox from "@/components/๊UserBox";
-import { CreateChat } from "@/models/Chat";
 import { UserMe } from "@/models/User";
 import { getAllUsers } from "@/services/getAllUsers";
 import { useState, useEffect } from "react";
@@ -79,9 +78,8 @@ const CreateGroupPage = () => {
             type="button"
             className="font-medium small-text bg-green-600 text-gray-200 hover:bg-green-700 rounded-md px-3 py-1"
             onClick={(e) => {
-              // e.preventDefault();
+              e.preventDefault();
               createGroupChat();
-              // router.push("/home/all");
             }}
           >
             Confirm
@@ -90,8 +88,7 @@ const CreateGroupPage = () => {
             className="font-medium small-text bg-gray-400 text-gray-800 hover:bg-gray-500 rounded-md px-3 py-1"
             onClick={(e) => {
               e.preventDefault();
-              createGroupChat();
-              // router.push("/home/all");
+              router.push("/home/all");
             }}
           >
             Cancel

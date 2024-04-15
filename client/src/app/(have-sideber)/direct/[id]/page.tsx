@@ -29,7 +29,7 @@ export default function DirectMessage({ params }: { params: { id: string } }) {
     <div className="flex flex-row h-full">
       <div className="w-full">
         {user ? <DirectNavBar username={user?.user_id} /> : null}
-        {user ? <ChatWindow username={user?.user_id} /> : null}
+        {user ? <ChatWindow username={user?.user_id} cid={params.id} /> : null}
       </div>
       {user && chat ? (
         <ShowChatMembers userIds={chat.members}></ShowChatMembers>

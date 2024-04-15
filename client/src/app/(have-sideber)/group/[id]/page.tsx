@@ -23,7 +23,7 @@ export default function GroupChat({ params }: { params: { id: string } }) {
   return (
     <>
       <GroupNavBar name={chat?.name} />
-      <ChatWindow username={params.id} />
+      <ChatWindow username={params.id} cid={params.id} />
     </>
   );
 }

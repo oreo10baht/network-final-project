@@ -7,7 +7,7 @@ import { useAuthContext } from "@/context/Auth";
 import { updateStatus } from "@/services/updateStatus";
 const socket = io(`${process.env.backend}`);
 
-export default function layout({ children }: { children: React.ReactNode }) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   // useMyMiddleware();
   const { user } = useAuthContext();
   const updateUserStatus = async () => {

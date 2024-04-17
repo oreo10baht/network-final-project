@@ -50,6 +50,7 @@ const Sidebar = () => {
         {groupChats
           ? groupChats.map((groupChat: GetChat) => (
               <SidebarIcon
+                key={groupChat._id}
                 text={groupChat.name!}
                 pathOnClicked={"/group/" + groupChat._id}
               >

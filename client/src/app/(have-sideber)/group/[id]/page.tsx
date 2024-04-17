@@ -30,7 +30,7 @@ export default function GroupChat({ params }: { params: { id: string } }) {
         </>
       ) : (
         <div className="relative flex items-center h-full w-full justify-center text-white text-lg">
-          You don't have access to this group!
+          You don&apos;t have access to this group!
         </div>
       )}
     </>

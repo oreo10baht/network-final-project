@@ -12,24 +12,27 @@ const io = new Server(server, {
     methods: ["GET", "POST"],
   },
 });
+
 const PORT = 8080;
 const connectDB = require("./db");
 
-//Dependencies
-server.use(express.json());
-server.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+// Middleware
+app.use(express.json());
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 
-//Routes
+// Routes
 const usersRouter = require("./routes/users");
 const friendsRouter = require("./routes/friends");
 const chatRoute = require("./routes/chats");
 const messageRoute = require("./routes/messages");
 
 connectDB();
-server.use("/api/users", usersRouter);
-server.use("/api/friends", friendsRouter);
-server.use("/api/chats", chatRoute);
-server.use("/api/messages", messageRoute);
+
+// Mount routes
+app.use("/api/users", usersRouter);
+app.use("/api/friends", friendsRouter);
+app.use("/api/chats", chatRoute);
+app.use("/api/messages", messageRoute);
 
 io.on("connection", (socket) => {
   socket.on("set-offline", async (data) => {
@@ -51,6 +54,7 @@ io.on("connection", (socket) => {
   });
   socket.on("disconnect", () => {});
 });
+
 server.listen(PORT, () => {
   console.log(`Server started on ${PORT}`);
 });

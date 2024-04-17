@@ -5,9 +5,11 @@ import { getAllUsers } from "@/services/getAllUsers";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createChat } from "@/services/Chats";
+import { useAuthContext } from "@/context/Auth";
 const CreateGroupPage = () => {
+  const { user } = useAuthContext();
   const router = useRouter();
-  const [members, setMember] = useState<string[]>([]);
+  const [members, setMember] = useState<string[]>([user!.username]);
   const [name, setName] = useState("");
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { checked, value } = e.target;
@@ -59,18 +61,22 @@ const CreateGroupPage = () => {
 
         <div className="medium-text font-medium my-2">Choose Members</div>
         <div className="text-gray-800 h-96 overflow-y-auto no-scrollbar w-96 flex gap-1 flex-col p-2 my-2">
-          {Users.map((user: UserMe) => (
-            <UserBox user={user}>
-              <input
-                type="checkbox"
-                className="size-5"
-                value={user.username}
-                key={user.user_id}
-                onChange={(e) => {
-                  handleFormChange(e);
-                }}
-              ></input>
-            </UserBox>
+          {Users.map((userNotMe: UserMe) => (
+            <>
+              {userNotMe.user_id !== user?.user_id ? (
+                <UserBox user={userNotMe}>
+                  <input
+                    type="checkbox"
+                    className="size-5"
+                    value={userNotMe.username}
+                    key={userNotMe.user_id}
+                    onChange={(e) => {
+                      handleFormChange(e);
+                    }}
+                  ></input>
+                </UserBox>
+              ) : null}
+            </>
           ))}
         </div>
         <div className="w-full flex flex-row justify-center my-5 gap-3">

@@ -59,4 +59,4 @@ server.listen(PORT, () => {
   console.log(`Server started on ${PORT}`);
 });
 
-module.exports = { app, server };
+module.exports = app;

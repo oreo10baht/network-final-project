@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
-    backend: "https://network-final-project.vercel.app",
+    backend: "http://localhost:8080",
   },
   images: {
     remotePatterns: [

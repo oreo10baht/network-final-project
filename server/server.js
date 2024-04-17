@@ -32,28 +32,27 @@ app.use("/api/chats", chatRoute);
 app.use("/api/messages", messageRoute);
 
 io.on("connection", (socket) => {
-  socket.on("set-offline", async(data)=>{
+  socket.on("set-offline", async (data) => {
     socket.broadcast.emit("set-user-offline", data);
     try {
-      await User.findOneAndUpdate({username: data}, { status: 0 });
+      await User.findOneAndUpdate({ username: data }, { status: 0 });
     } catch (error) {
       console.error("Error updating user status:", error);
     }
-
-  }) //when a user disconnects
-  socket.on("set-online", (data)=>{
+  }); //when a user disconnects
+  socket.on("set-online", (data) => {
     socket.to(data).emit("set-user-online", data);
-  }) //when user connects
+  }); //when user connects
   socket.on("join-room", (room) => {
     socket.join(room);
   });
   socket.on("send-message", (data) => {
     socket.to(data.chatId).emit("receive-message", data);
   });
-  socket.on("disconnect", () => {
-  });
-    
+  socket.on("disconnect", () => {});
 });
 server.listen(PORT, () => {
   console.log(`Server started on ${PORT}`);
 });
+
+module.exports = app;

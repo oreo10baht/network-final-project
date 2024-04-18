@@ -3,6 +3,11 @@ const mongoose = require("mongoose");
 const chatSchema = new mongoose.Schema(
   {
     name: { type: String },
+    owner: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Users",
+      required: true,
+    },
     members: {
       type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Users" }],
       required: [true, "Please enter the members"],

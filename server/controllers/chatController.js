@@ -2,7 +2,6 @@ const Chat = require("../models/chat.model");
 const User = require("../models/user.model.js");
 
 exports.createChat = async (req, res) => {
-
   const membersUsername = req.body.members;
   const userIds = [];
   let members = [];
@@ -53,6 +52,7 @@ exports.createChat = async (req, res) => {
 
     const newChat = new Chat({
       name: req.body.name,
+      owner: req.user._id,
       members: members,
       type: req.body.type,
     });

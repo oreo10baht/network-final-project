@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const chatController = require("../controllers/chatController");
+const { authenticateUser } = require("../controllers/authController");
 
-router.post("/", chatController.createChat);
+router.post("/", authenticateUser, chatController.createChat);
 router.get("/all", chatController.getAllUserChats);
 router.get("/allgroup", chatController.getAllGroupChats);
 router.get("/users/:userId", chatController.getUserChatsByUserId);

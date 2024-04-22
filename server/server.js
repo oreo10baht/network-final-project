@@ -26,13 +26,11 @@ const connectDB = require("./db");
 
 // Middleware
 app.use(express.json());
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Origin, Content-Type, X-Auth-Token');
-  next();
-});
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true,
+}));
+
 // Routes
 const usersRouter = require("./routes/users");
 const friendsRouter = require("./routes/friends");
@@ -72,4 +70,4 @@ httpServer.listen(PORT, () => {
   console.log(`Server started on ${PORT}`);
 });
 
-module.exports = app;
+// module.exports = app;

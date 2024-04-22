@@ -31,10 +31,11 @@ const Sidebar = () => {
     socket.on("set-offline", (data) => {});
     updateUserStatus();
   }, [user]);
-
-  window.onbeforeunload = function (e) {
-    socket.emit("set-offline", user?.username);
-  };
+  useEffect(() => {
+    window.onbeforeunload = function (e) {
+      socket.emit("set-offline", user?.username);
+    };
+  }, [socket]);
 
   return (
     <div className="overflow-auto no-scrollbar h-screen w-16 sticky bg-gray-900 top-0 left-0">

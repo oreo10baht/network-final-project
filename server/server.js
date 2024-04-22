@@ -2,14 +2,23 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const http = require("http");
-const server = http.createServer(app);
+// const server = http.createServer(app);
+const httpServer = http.createServer(app);
+  app.use(
+    cors({
+      origin: "http://localhost:3000",
+      credentials: true,
+    })
+  );
 const { Server } = require("socket.io");
 const User = require("./models/user.model.js");
 
-const io = require('socket.io')(server, {
+const io = new Server(httpServer, {
+  cookie: true,
   cors: {
-    origin: '*',
-  }
+    origin: "http://localhost:3000",
+    credentials: true,
+  },
 });
 
 const PORT = 8080;
@@ -59,7 +68,7 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {});
 });
 
-server.listen(PORT, () => {
+httpServer.listen(PORT, () => {
   console.log(`Server started on ${PORT}`);
 });
 

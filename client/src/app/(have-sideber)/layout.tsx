@@ -21,9 +21,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     updateUserStatus();
   }, [user]);
 
-  window.onbeforeunload = function (e) {
-    socket.emit("set-offline", user?.username);
-  };
+  useEffect(() => {
+    window.onbeforeunload = function (e) {
+      socket.emit("set-offline", user?.username);
+    };
+  }, [socket]);
   return (
     <div className="bg-gray-900 flex flex-row ">
       <Sidebar></Sidebar>

@@ -1,6 +1,6 @@
 "use client";
 import ChatWindow from "@/components/ChatWindow";
-import DirectNavBar from "@/components/DirectNavBar";
+import DirectNavBar from "@/components/Bar/DirectNavBar";
 import ShowChatMembers from "@/components/ShowChatMembers";
 import { useAuthContext } from "@/context/Auth";
 import { useMyMiddleware } from "@/hooks/useMyMiddleware";

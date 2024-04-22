@@ -6,7 +6,7 @@ import Empty from "@/components/Empty";
 import { getUsersbyIds } from "@/utils/getUsersbyIds";
 import UserBox from "@/components/๊UserBox";
 import { useMyMiddleware } from "@/hooks/useMyMiddleware";
-import AcceptFriendBtn from "@/components/AcceptFriendBtn";
+import AcceptFriendBtn from "@/components/Button/AcceptFriendBtn";
 import Header from "@/components/Header";
 
 const Requesting = () => {
@@ -23,8 +23,9 @@ const Requesting = () => {
         }
       }
     };
-    getReqUsers();
-  });
+    // const intervalId = setInterval(getReqUsers, 2000);
+    // return () => clearInterval(intervalId);
+  }, []);
   return (
     <>
       {Users.length !== 0 ? (

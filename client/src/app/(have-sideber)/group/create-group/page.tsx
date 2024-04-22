@@ -39,8 +39,9 @@ const CreateGroupPage = () => {
         setUsers(users);
       }
     };
-    fetchUser();
-  });
+    // const intervalId = setInterval(fetchUser, 2000);
+    // return () => clearInterval(intervalId);
+  },[]);
   return (
     <div className="bg-gray-600 w-full h-screen text-gray-400 flex flex-col justify-center items-center ">
       <h1 className="large-text font-medium my-2">Create Group</h1>

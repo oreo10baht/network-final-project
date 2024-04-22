@@ -19,8 +19,9 @@ const Sidebar = () => {
         setGroupChats(gcs);
       }
     };
-    allGroupChat();
-  });
+    const intervalId = setInterval(allGroupChat, 2000);
+    return () => clearInterval(intervalId);
+  }, []);
   const updateUserStatus = async () => {
     if (user) {
       const res = await updateStatus(user?.username || "", 1);

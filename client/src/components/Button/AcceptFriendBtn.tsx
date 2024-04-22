@@ -14,7 +14,7 @@ const AcceptFriendBtn = ({ recipientName }: { recipientName: string }) => {
   const acceptfriend = async (e: any) => {
     e.preventDefault();
     if (user) {
-      const res = await acceptFriend( recipientName,user.username);
+      const res = await acceptFriend(recipientName, user.username);
       if (res) {
         setaccepted(true);
         console.log(res);
@@ -37,7 +37,10 @@ const AcceptFriendBtn = ({ recipientName }: { recipientName: string }) => {
           <PlusIcon className="size-32 text-gray-400" />
         )}
       </button>
-      <CancelFriendReqBtn requesterName={recipientName} recipientName={user!.username} />
+      <CancelFriendReqBtn
+        requesterName={recipientName}
+        recipientName={user!.username}
+      />
     </div>
   );
 };

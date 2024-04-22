@@ -4,7 +4,7 @@ import { UserMe } from "@/models/User";
 import { useAuthContext } from "@/context/Auth";
 import Empty from "@/components/Empty";
 import UserBox from "@/components/๊UserBox";
-import RemoveFriendBtn from "@/components/RemoveFriendBtn";
+import RemoveFriendBtn from "@/components/Button/RemoveFriendBtn";
 import { getUsersbyIds } from "@/utils/getUsersbyIds";
 import { useMyMiddleware } from "@/hooks/useMyMiddleware";
 import Header from "@/components/Header";
@@ -22,8 +22,9 @@ const Friend = () => {
         }
       }
     };
-    getFriends();
-  });
+    // const intervalId = setInterval(getFriends, 2000);
+    // return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <>

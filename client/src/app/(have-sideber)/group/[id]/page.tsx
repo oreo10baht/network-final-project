@@ -1,6 +1,6 @@
 "use client";
 import ChatWindow from "@/components/ChatWindow";
-import GroupNavBar from "@/components/GroupNavBar";
+import GroupNavBar from "@/components/Bar/GroupNavBar";
 import { Chat } from "@/models/Chat";
 import { getChatbyChatId } from "@/services/Chats";
 import { useMyMiddleware } from "@/hooks/useMyMiddleware";

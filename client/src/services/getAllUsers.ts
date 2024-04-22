@@ -1,7 +1,7 @@
 export async function getAllUsers() {
   try {
     const response = await fetch(`${process.env.backend}/api/users/`, {
-      method: "GET",
+     next:{revalidate:0}
     });
 
     if (!response.ok) {

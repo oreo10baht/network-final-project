@@ -26,11 +26,6 @@ const connectDB = require("./db");
 
 // Middleware
 app.use(express.json());
-app.use(cors({
-  origin: "http://localhost:3000",
-  credentials: true,
-}));
-
 // Routes
 const usersRouter = require("./routes/users");
 const friendsRouter = require("./routes/friends");

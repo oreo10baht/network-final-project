@@ -6,11 +6,10 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const User = require("./models/user.model.js");
 
-const io = new Server(server, {
+const io = require('socket.io')(server, {
   cors: {
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST"],
-  },
+    origin: '*',
+  }
 });
 
 const PORT = 8080;

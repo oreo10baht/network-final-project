@@ -6,17 +6,16 @@ const http = require("http");
 const httpServer = http.createServer(app);
   app.use(
     cors({
-      origin: "http://localhost:3000",
+      origin: `${process.env.FRONTEND}`,
       credentials: true,
     })
   );
 const { Server } = require("socket.io");
 const User = require("./models/user.model.js");
-
 const io = new Server(httpServer, {
   cookie: true,
   cors: {
-    origin: "http://localhost:3000",
+    origin: `${process.env.FRONTEND}`,
     credentials: true,
   },
 });

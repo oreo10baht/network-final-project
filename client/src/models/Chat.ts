@@ -24,6 +24,7 @@ export interface GetChat {
 }
 
 export interface CreateChat {
+  owner: string,
   firstUsername: string;
   secondUsername: string;
   type: ChatType;

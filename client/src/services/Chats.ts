@@ -73,7 +73,7 @@ export async function createChat(chat: any) {
       },
       body: JSON.stringify(chat),
     });
-
+    
     if (!response.ok) {
       throw new Error("can't create chat");
     }

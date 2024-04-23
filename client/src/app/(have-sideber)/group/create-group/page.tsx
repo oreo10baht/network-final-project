@@ -23,12 +23,15 @@ const CreateGroupPage = () => {
     setName(e.target.value);
   };
   const createGroupChat = async () => {
-    const req = {
-      members: members,
-      type: "GROUP",
-      name: name,
-    };
-    const response = createChat(req);
+    if (user) {
+      const req = {
+        members: members,
+        type: "GROUP",
+        name: name,
+        owner: user.username,
+      };
+      const response = createChat(req);
+    }
   };
 
   const [Users, setUsers] = useState<UserMe[]>([] as UserMe[]);

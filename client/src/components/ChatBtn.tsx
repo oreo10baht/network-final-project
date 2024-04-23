@@ -14,18 +14,22 @@ const ChatBtn = ({ friendUsername }: { friendUsername: string }) => {
   const router = useRouter();
   const handleChat = async () => {
     if (user) {
-      console.log(friendUsername, user.username)
-      const chat = await getDirectChatByUsername(friendUsername, user?.username);
+      console.log(friendUsername, user.username);
+      const chat = await getDirectChatByUsername(
+        friendUsername,
+        user?.username
+      );
       console.log(chat, "1");
-      if (chat===undefined) {
-
+      if (chat === undefined) {
         const chatData: CreateChat = {
+          owner: user.username,
           firstUsername: user.username,
           secondUsername: friendUsername,
           type: "PRIVATE",
-          name:"",
-          members:[user.username,friendUsername]
+          members: [user.username, friendUsername],
         };
+        console.log(chatData);
+
         const newChat = await createChat(chatData);
         console.log(newChat, "2");
 

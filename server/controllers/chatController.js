@@ -5,14 +5,15 @@ exports.createChat = async (req, res) => {
   const membersUsername = req.body.members;
   const userIds = [];
   let members = [];
-
   try {
     for (const username of membersUsername) {
       const user = await User.findOne({ username: username });
       if (!user) {
         return res.status(404).json("User not found");
       }
-      userIds.push(user._id);
+      if(user){
+        userIds.push(user._id);
+      }
     }
     if (userIds.length === 0) {
       const firstUsername = await User.findOne({
@@ -49,10 +50,11 @@ exports.createChat = async (req, res) => {
       }
       members = userIds;
     }
+    const owner = await User.findOne({ username: req.body.owner });
 
     const newChat = new Chat({
       name: req.body.name,
-      owner: req.user._id,
+      owner: owner._id,
       members: members,
       type: req.body.type,
     });

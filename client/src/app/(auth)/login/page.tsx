@@ -61,6 +61,7 @@ const Login = () => {
           <button
             type="submit"
             className="bg-gray-400 py-1 px-2 my-3 mx-auto rounded-lg "
+            onClick={handleSubmit}
           >
             Login
           </button>

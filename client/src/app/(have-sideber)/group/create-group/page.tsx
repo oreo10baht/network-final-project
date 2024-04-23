@@ -9,7 +9,7 @@ import { useAuthContext } from "@/context/Auth";
 const CreateGroupPage = () => {
   const { user } = useAuthContext();
   const router = useRouter();
-  const [members, setMember] = useState<string[]>([user!.username]);
+  const [members, setMember] = useState<string[]>([]);
   const [name, setName] = useState("");
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { checked, value } = e.target;
@@ -33,6 +33,9 @@ const CreateGroupPage = () => {
 
   const [Users, setUsers] = useState<UserMe[]>([] as UserMe[]);
   useEffect(() => {
+    if (user) {
+      setMember([user.username]);
+    }
     const fetchUser = async () => {
       const users = await getAllUsers();
       if (users) {
@@ -40,7 +43,7 @@ const CreateGroupPage = () => {
       }
     };
     fetchUser();
-  });
+  }, []);
   return (
     <div className="bg-gray-600 w-full h-screen text-gray-400 flex flex-col justify-center items-center ">
       <h1 className="large-text font-medium my-2">Create Group</h1>
@@ -61,23 +64,24 @@ const CreateGroupPage = () => {
 
         <div className="medium-text font-medium my-2">Choose Members</div>
         <div className="text-gray-800 h-96 overflow-y-auto no-scrollbar w-96 flex gap-1 flex-col p-2 my-2">
-          {Users.map((userNotMe: UserMe) => (
-            <>
-              {userNotMe.user_id !== user?.user_id ? (
-                <UserBox user={userNotMe}>
-                  <input
-                    type="checkbox"
-                    className="size-5"
-                    value={userNotMe.username}
-                    key={userNotMe.user_id}
-                    onChange={(e) => {
-                      handleFormChange(e);
-                    }}
-                  ></input>
-                </UserBox>
-              ) : null}
-            </>
-          ))}
+          {Users &&
+            Users.map((userNotMe: UserMe) => (
+              <>
+                {userNotMe.user_id !== user?.user_id ? (
+                  <UserBox user={userNotMe}>
+                    <input
+                      type="checkbox"
+                      className="size-5"
+                      value={userNotMe.username}
+                      key={userNotMe.user_id}
+                      onChange={(e) => {
+                        handleFormChange(e);
+                      }}
+                    ></input>
+                  </UserBox>
+                ) : null}
+              </>
+            ))}
         </div>
         <div className="w-full flex flex-row justify-center my-5 gap-3">
           <button

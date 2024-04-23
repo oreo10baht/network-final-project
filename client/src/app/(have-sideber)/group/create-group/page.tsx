@@ -9,7 +9,7 @@ import { useAuthContext } from "@/context/Auth";
 const CreateGroupPage = () => {
   const { user } = useAuthContext();
   const router = useRouter();
-  const [members, setMember] = useState<string[]>([]);
+  const [members, setMember] = useState<string[]>([user!.username]);
   const [name, setName] = useState("");
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { checked, value } = e.target;
@@ -30,15 +30,17 @@ const CreateGroupPage = () => {
         name: name,
         owner: user.username,
       };
-      const response = createChat(req);
+      const response = await createChat(req);
+      if (response) {
+        router.push("/home/all");
+      } else {
+        console.log("cant create");
+      }
     }
   };
 
   const [Users, setUsers] = useState<UserMe[]>([] as UserMe[]);
   useEffect(() => {
-    if (user) {
-      setMember([user.username]);
-    }
     const fetchUser = async () => {
       const users = await getAllUsers();
       if (users) {
@@ -71,7 +73,7 @@ const CreateGroupPage = () => {
             Users.map((userNotMe: UserMe) => (
               <>
                 {userNotMe.user_id !== user?.user_id ? (
-                  <UserBox user={userNotMe}>
+                  <UserBox user={userNotMe} key={userNotMe.user_id}>
                     <input
                       type="checkbox"
                       className="size-5"

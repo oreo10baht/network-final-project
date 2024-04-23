@@ -22,8 +22,7 @@ const Friend = () => {
         }
       }
     };
-    // const intervalId = setInterval(getFriends, 2000);
-    // return () => clearInterval(intervalId);
+    getFriends()
   }, []);
 
   return (

@@ -16,14 +16,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     }
   };
   useEffect(() => {
-    socket.emit("set-online", user?.username);
-    socket.on("set-offline", (data) => {});
-    updateUserStatus();
+    if (user) {
+      socket.emit("set-online", user?.username);
+      socket.on("set-offline", (data) => {});
+      updateUserStatus();
+    }
   }, [user]);
-
-  window.onbeforeunload = function (e) {
-    socket.emit("set-offline", user?.username);
-  };
+  useEffect(() => {
+    if (user) {
+      window.onbeforeunload = function (e) {
+        socket.emit("set-offline", user?.username);
+      };
+    }
+  }, [socket]);
   return (
     <div className="bg-gray-900 flex flex-row ">
       <Sidebar></Sidebar>

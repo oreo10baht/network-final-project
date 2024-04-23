@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
-    backend: "http://localhost:8080",
+    backend: "https://shark-app-nkfds.ondigitalocean.app",
+    // socket: "wss://shark-app-nkfds.ondigitalocean.app",
   },
   images: {
     remotePatterns: [

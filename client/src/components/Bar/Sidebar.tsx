@@ -28,14 +28,19 @@ const Sidebar = () => {
     }
   };
   useEffect(() => {
-    socket.emit("set-online", user?.username);
-    socket.on("set-offline", (data) => {});
-    updateUserStatus();
+    if (user) {
+      socket.emit("set-online", user?.username);
+      socket.on("set-offline", (data) => {});
+      updateUserStatus();
+    }
   }, [user]);
-
-  window.onbeforeunload = function (e) {
-    socket.emit("set-offline", user?.username);
-  };
+  useEffect(() => {
+    if (user) {
+      window.onbeforeunload = function (e) {
+        socket.emit("set-offline", user?.username);
+      };
+    }
+  }, [socket]);
 
   return (
     <div className="overflow-auto no-scrollbar h-screen w-16 sticky bg-gray-900 top-0 left-0">

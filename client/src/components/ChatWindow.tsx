@@ -50,7 +50,7 @@ const ChatWindow = ({ username, cid }: { username: string; cid: string }) => {
       minute: "numeric",
       hour12: true,
     };
-    const formattedDateTime = new Intl.DateTimeFormat("en-US", options).format(
+    const formattedDateTime = new Intl.DateTimeFormat("en-US").format(
       formattedTime
     );
     return formattedDateTime;
@@ -66,7 +66,10 @@ const ChatWindow = ({ username, cid }: { username: string; cid: string }) => {
       };
       socket.emit("send-message", newMessage);
       setMessage("");
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
+      if (messages) {
+        messages.push(newMessage);
+        setMessages([...messages]);
+      }
       createMessage(newMessage);
     }
   };
@@ -98,7 +101,10 @@ const ChatWindow = ({ username, cid }: { username: string; cid: string }) => {
   useEffect(() => {
     socket.on("receive-message", (message: Message) => {
       console.log("message:", message);
-      setMessages((prevMessages) => [...prevMessages, message]);
+      if (messages) {
+        messages.push(message);
+        setMessages([...messages]);
+      }
     });
     scrollToBottom();
 

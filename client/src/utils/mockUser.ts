@@ -4,15 +4,15 @@ export function generateMockUsers(count: number): User[] {
   const users: User[] = [];
   for (let i = 0; i < count; i++) {
     users.push({
-      uid: generateUID(),
+      user_id: generateUID(),
       username: generateUsername(),
-      name: generateName(),
+      display_name: generateName(),
       password: generatePassword(),
       description: generateDescription(),
-      pendingList: generateUIDArray(),
-      reqList: generateUIDArray(),
-      friendList: generateUIDArray(),
-      status: generateStatus(),
+      pendings: generateUIDArray(),
+      requests: generateUIDArray(),
+      friends: generateUIDArray(),
+      status: 0,
     });
   }
   return users;

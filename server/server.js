@@ -2,14 +2,21 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const http = require("http");
-const server = http.createServer(app);
+// const server = http.createServer(app);
+const httpServer = http.createServer(app);
+  app.use(
+    cors({
+      origin: `${process.env.FRONTEND}`,
+      credentials: true,
+    })
+  );
 const { Server } = require("socket.io");
 const User = require("./models/user.model.js");
-
-const io = new Server(server, {
+const io = new Server(httpServer, {
+  cookie: true,
   cors: {
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST"],
+    origin: `${process.env.FRONTEND}`,
+    credentials: true,
   },
 });
 
@@ -18,8 +25,6 @@ const connectDB = require("./db");
 
 // Middleware
 app.use(express.json());
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
-
 // Routes
 const usersRouter = require("./routes/users");
 const friendsRouter = require("./routes/friends");
@@ -55,8 +60,8 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {});
 });
 
-server.listen(PORT, () => {
+httpServer.listen(PORT, () => {
   console.log(`Server started on ${PORT}`);
 });
 
-module.exports = app;
+// module.exports = app;

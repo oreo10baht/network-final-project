@@ -3,7 +3,13 @@ import UserBox from "./๊UserBox";
 import { useEffect, useState } from "react";
 import { getUsersbyIds } from "@/utils/getUsersbyIds";
 
-const ShowChatMembers = ({ userIds }: { userIds: string[] }) => {
+const ShowChatMembers = ({
+  userIds,
+  ownerId,
+}: {
+  userIds: string[];
+  ownerId?: string;
+}) => {
   const [members, setMembers] = useState<UserMe[]>();
   useEffect(() => {
     const getMembers = async () => {
@@ -20,9 +26,12 @@ const ShowChatMembers = ({ userIds }: { userIds: string[] }) => {
         <>
           {members.map((member: UserMe) => (
             <UserBox user={member} key={member.username}>
-              <p>test</p>
+              {ownerId === member.user_id ? (
+                <p className="text-gray-400 small-text">Owner</p>
+              ) : (
+                <p className="text-gray-400 small-text">member</p>
+              )}
             </UserBox>
-            // <p className="sticky">test</p>
           ))}
         </>
       ) : null}

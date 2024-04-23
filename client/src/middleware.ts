@@ -8,6 +8,9 @@ export const config = {
 export function middleware(request: NextRequest) {
   const res = request.cookies.get("token");
   if (!res) {
-    return NextResponse.redirect(new URL("http://localhost:3000/login"));
+    const currentURL = new URL(window.location.href);
+    const loginURL = new URL("/login", currentURL);
+    return NextResponse.redirect(loginURL);
+    // return NextResponse.redirect(new URL("http://localhost:3000/login"));
   }
 }

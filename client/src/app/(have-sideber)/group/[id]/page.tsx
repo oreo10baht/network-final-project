@@ -23,11 +23,11 @@ export default function GroupChat({ params }: { params: { id: string } }) {
   }, []);
   return (
     <>
-      <GroupNavBar name={chat?.name} />
+      <GroupNavBar name={chat?.name} chatId={params.id} />
       {chat && user && chat?.members?.includes(user?.user_id) ? (
-        <>
+        <div className="flex w-full">
           <ChatWindow username={user?.user_id || ""} cid={chat?._id} />
-        </>
+        </div>
       ) : (
         <div className="relative flex items-center h-full w-full justify-center text-white text-lg">
           You don&apos;t have access to this group!

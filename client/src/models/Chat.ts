@@ -13,6 +13,7 @@ export interface Chat {
   type: ChatType;
   message: Message[];
   reqList: string[];
+  owner: string;
 }
 
 export interface GetChat {

@@ -114,7 +114,7 @@ const ChatWindow = ({ username, cid }: { username: string; cid: string }) => {
   }, [socket, messages]);
 
   return (
-    <div className="w-full  mt-12 mb-20">
+    <div className="w-full mt-12 mb-20">
       <div>
         <div
           ref={messageListRef}

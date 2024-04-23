@@ -11,7 +11,7 @@ const UserBox = ({
 }) => {
   // console.log(user);
   return (
-    <div className="w-full h-16 bg-gray-700 rounded-lg  border-gray-500 border-2 flex p-2 hover:bg-gray-500">
+    <div className="h-16 bg-gray-700 rounded-lg  border-gray-500 border-2 flex p-2 hover:bg-gray-500">
       <div className="flex flex-row justify-between items-center w-full">
         <div className="flex flex-row items-center gap-2">
           <div className="size-12 relative flex items-center">

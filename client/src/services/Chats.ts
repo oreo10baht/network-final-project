@@ -1,4 +1,4 @@
-"use server"
+"use server";
 
 import { revalidateTag } from "next/cache";
 
@@ -19,7 +19,9 @@ export async function getChats() {
 
 export async function getGroupChats() {
   try {
-    const response = await fetch(`${process.env.backend}/api/chats/allgroup` ,{next:{tags:['group']}});
+    const response = await fetch(`${process.env.backend}/api/chats/allgroup`, {
+      next: { tags: ["group"] },
+    });
 
     if (!response.ok) {
       throw new Error("can't get all group chats");
@@ -66,7 +68,7 @@ export async function getChatbyChatId(chatId: string) {
   }
 }
 
-export async function createChat(chat:any) {
+export async function createChat(chat: any) {
   try {
     const response = await fetch(`${process.env.backend}/api/chats/`, {
       method: "POST",
@@ -75,7 +77,7 @@ export async function createChat(chat:any) {
       },
       body: JSON.stringify(chat),
     });
-    
+
     if (!response.ok) {
       throw new Error("can't create chat");
     }
@@ -85,20 +87,59 @@ export async function createChat(chat:any) {
   }
 }
 
-export async function reqJoinChat(chatId:string,memberId:string) {
+export async function addMemberToChat(memberId: any, chatId: string) {
   try {
-    const response = await fetch(`${process.env.backend}/api/chats/req/${chatId}`, {
+    const response = await fetch(`${process.env.backend}/api/chats/${chatId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        memberId:memberId
-      }),
+      body: JSON.stringify(memberId),
     });
-    
+
+    if (!response.ok) {
+      throw new Error("can't add member");
+    }
+    return response.json();
+  } catch (err) {
+    console.log(err);
+  }
+}
+export async function reqJoinChat(chatId: string, memberId: string) {
+  try {
+    const response = await fetch(
+      `${process.env.backend}/api/chats/req/${chatId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          memberId: memberId,
+        }),
+      }
+    );
+
     if (!response.ok) {
       throw new Error("can't req join");
+    }
+    return response.json();
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function removeReq(chatId: string, memberId: string) {
+  try {
+    const response = await fetch(
+      `${process.env.backend}/api/chats/req/${chatId}/${memberId}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("can't remove req join");
     }
     return response.json();
   } catch (err) {

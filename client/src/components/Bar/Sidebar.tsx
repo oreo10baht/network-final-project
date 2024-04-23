@@ -67,7 +67,7 @@ const Sidebar = () => {
                   <SidebarIcon
                     key={groupChat._id}
                     text={groupChat.name!}
-                    pathOnClicked={"/group/join-group"}
+                    pathOnClicked={"/group/join-group/"+ groupChat._id}
                   >
                   </SidebarIcon>
                 )}

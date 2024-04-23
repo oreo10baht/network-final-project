@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useAuthContext } from "@/context/Auth";
 import { Chat } from "@/models/Chat";
 import { getChatbyChatId } from "@/services/Chats";
-import { truncate } from "fs";
+import AddMemberToGroup from "../AddMemberToGroup";
 
 const GroupNavBar = ({
   name,
@@ -17,19 +17,20 @@ const GroupNavBar = ({
   const router = useRouter();
   const { user } = useAuthContext();
   const [chat, setChat] = useState<Chat>();
-  const [isOwner, setIsOwner] = useState(false);
+  const [isOwner, setIsOwner] = useState(true);
+  const [isShown, setIsShown] = useState(false);
 
   useEffect(() => {
     const fetchChat = async () => {
       const chat = await getChatbyChatId(chatId);
       if (chat) {
         setChat(chat);
-        console.log(user?.username);
-        console.log(chat);
-        if (chat.owner === user?.user_id) {
-          setIsOwner(true);
-        }
       }
+      if (chat?.owner !== user?.user_id) {
+        setIsOwner(false);
+      }
+      console.log(chat);
+      console.log(user);
     };
     fetchChat();
   }, []);
@@ -49,12 +50,15 @@ const GroupNavBar = ({
           <button
             className="bg-[#5865f2] p-2 rounded-lg text-gray-400 font-medium mr-32 hover:bg-[#4752C4]"
             onClick={() => {
-              console.log(isOwner);
+              setIsShown(true);
             }}
           >
             Add member
           </button>
         </div>
+      )}
+      {isShown && (
+        <AddMemberToGroup chatId={chat?._id} setIsShown={setIsShown} />
       )}
     </div>
   );

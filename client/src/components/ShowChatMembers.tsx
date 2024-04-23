@@ -2,15 +2,18 @@ import { UserMe } from "@/models/User";
 import UserBox from "./๊UserBox";
 import { useEffect, useState } from "react";
 import { getUsersbyIds } from "@/utils/getUsersbyIds";
+import HandleJoinBtn from "./Button/HandleJoinBtn";
 
 const ShowChatMembers = ({
   userIds,
   ownerId,
   reqIds,
+  chatId
 }: {
   userIds: string[];
   ownerId?: string;
   reqIds?: string[];
+  chatId:string;
 }) => {
   const [members, setMembers] = useState<UserMe[]>();
   const [requesters, setRequesters] = useState<UserMe[]>();
@@ -54,7 +57,7 @@ const ShowChatMembers = ({
           {reqIds ? (
             requesters?.map((member: UserMe) => (
               <UserBox user={member} key={member.username}>
-                <p>kcj</p>
+                <HandleJoinBtn memberId={member.user_id} chatId={chatId}/>
               </UserBox>
             ))
           ) : (

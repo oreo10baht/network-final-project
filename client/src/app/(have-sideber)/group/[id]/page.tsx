@@ -36,7 +36,7 @@ export default function GroupChat({ params }: { params: { id: string } }) {
         )}
       </div>
 
-      {chat ? <ShowChatMembers userIds={chat.members} ownerId={chat.owner}/> : null}
+      {chat ? <ShowChatMembers userIds={chat.members} ownerId={chat.owner} chatId={chat._id}/> : null}
     </div>
   );
 }

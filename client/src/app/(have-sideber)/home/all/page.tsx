@@ -16,6 +16,7 @@ import CancelFriendReqBtn from "@/components/Button/CancelFriendReqBtn";
 import Header from "@/components/Header";
 import { io } from "socket.io-client";
 import { updateStatus } from "@/services/updateStatus";
+import { revalidateTag } from "next/cache";
 const socket = io(`${process.env.backend}`);
 const All = () => {
   useMyMiddleware();
@@ -31,10 +32,6 @@ const All = () => {
       }
     };
     fetchUser()
-    // setCount(prev=>prev)
-    // console.log(count)
-    // const intervalId = setInterval(fetchUser, 2000);
-    // return () => clearInterval(intervalId);
   },[]);
   const updateUserStatus = async () => {
     if (user) {

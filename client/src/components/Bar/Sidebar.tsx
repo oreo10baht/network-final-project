@@ -19,8 +19,7 @@ const Sidebar = () => {
         setGroupChats(gcs);
       }
     };
-    const intervalId = setInterval(allGroupChat, 2000);
-    return () => clearInterval(intervalId);
+    allGroupChat();
   }, []);
   const updateUserStatus = async () => {
     if (user) {
@@ -55,15 +54,24 @@ const Sidebar = () => {
 
         {groupChats
           ? groupChats.map((groupChat: GetChat) => (
-              <SidebarIcon
-                key={groupChat._id}
-                text={groupChat.name!}
-                pathOnClicked={"/group/" + groupChat._id}
-              >
+              <>
                 {user && groupChat.members.includes(user?.user_id) ? (
-                  <DotFilledIcon className="absolute top-0 right-0 size-4 m-0 p-0" />
-                ) : null}
-              </SidebarIcon>
+                  <SidebarIcon
+                    key={groupChat._id}
+                    text={groupChat.name!}
+                    pathOnClicked={"/group/" + groupChat._id}
+                  >
+                    <DotFilledIcon className="absolute top-0 right-0 size-4 m-0 p-0" />
+                  </SidebarIcon>
+                ) : (
+                  <SidebarIcon
+                    key={groupChat._id}
+                    text={groupChat.name!}
+                    pathOnClicked={"/group/join-group"}
+                  >
+                  </SidebarIcon>
+                )}
+              </>
             ))
           : null}
       </div>

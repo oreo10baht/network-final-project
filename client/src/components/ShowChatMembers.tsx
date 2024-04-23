@@ -6,11 +6,15 @@ import { getUsersbyIds } from "@/utils/getUsersbyIds";
 const ShowChatMembers = ({
   userIds,
   ownerId,
+  reqIds,
 }: {
   userIds: string[];
   ownerId?: string;
+  reqIds?: string[];
 }) => {
   const [members, setMembers] = useState<UserMe[]>();
+  const [requesters, setRequesters] = useState<UserMe[]>();
+
   useEffect(() => {
     const getMembers = async () => {
       const mem: UserMe[] = await getUsersbyIds(userIds);
@@ -19,12 +23,22 @@ const ShowChatMembers = ({
       }
     };
     getMembers();
+
+    const getRequesters = async () => {
+      if (reqIds) {
+        const mem: UserMe[] = await getUsersbyIds(reqIds);
+        if (mem) {
+          setRequesters(mem);
+        }
+      }
+    };
+    getRequesters();
   }, []);
   return (
-    <div className=" flex flex-col overflow-auto no-scrollbar h-screen w-96 sticky bg-gray-900 top-0 left-0 p-4 gap-2">
-      {members ? (
-        <>
-          {members.map((member: UserMe) => (
+    <div className=" flex flex-col h-screen w-96 bg-gray-900 top-0 left-0 p-4 gap-2 sticky ">
+      <div className="flex flex-col h-full  overflow-auto no-scrollbar ">
+        {members &&
+          members.map((member: UserMe) => (
             <UserBox user={member} key={member.username}>
               {ownerId === member.user_id ? (
                 <p className="text-gray-400 small-text">Owner</p>
@@ -33,7 +47,20 @@ const ShowChatMembers = ({
               )}
             </UserBox>
           ))}
-        </>
+      </div>
+      {ownerId ? (
+        <div className="flex flex-col h-2/5  overflow-auto no-scrollbar">
+          <p className="small-text text-gray-400 font-semibold">Requests</p>
+          {reqIds ? (
+            requesters?.map((member: UserMe) => (
+              <UserBox user={member} key={member.username}>
+                <p>kcj</p>
+              </UserBox>
+            ))
+          ) : (
+            <p className="text-center m-auto text-gray-400 small-text">no requests</p>
+          )}
+        </div>
       ) : null}
     </div>
   );

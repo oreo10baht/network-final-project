@@ -23,8 +23,7 @@ const Requesting = () => {
         }
       }
     };
-    // const intervalId = setInterval(getReqUsers, 2000);
-    // return () => clearInterval(intervalId);
+    getReqUsers()
   }, []);
   return (
     <>

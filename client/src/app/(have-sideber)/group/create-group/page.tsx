@@ -6,6 +6,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createChat } from "@/services/Chats";
 import { useAuthContext } from "@/context/Auth";
+
+import { revalidateTag } from "next/cache";
 const CreateGroupPage = () => {
   const { user } = useAuthContext();
   const router = useRouter();

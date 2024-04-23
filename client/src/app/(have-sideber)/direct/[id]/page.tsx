@@ -26,7 +26,7 @@ export default function DirectMessage({ params }: { params: { id: string } }) {
         {user ? <ChatWindow username={user?.user_id} cid={params.id} /> : null}
       </div>
       {user && chat ? (
-        <ShowChatMembers userIds={chat.members}></ShowChatMembers>
+        <ShowChatMembers userIds={chat.members} chatId={chat._id}></ShowChatMembers>
       ) : null}
     </div>
   );

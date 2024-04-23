@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useAuthContext } from "@/context/Auth";
 import { Chat } from "@/models/Chat";
 import { getChatbyChatId } from "@/services/Chats";
-import AddMemberToGroup from "./AddMemberToGroup";
+import AddMemberToGroup from "../AddMemberToGroup";
 
 const GroupNavBar = ({
   name,

@@ -18,6 +18,7 @@ export default function GroupChat({ params }: { params: { id: string } }) {
       const chat = await getChatbyChatId(params.id);
       if (chat) {
         setChat(chat);
+        console.log(chat,"g c")
       }
     };
     fetchChat();
@@ -35,7 +36,7 @@ export default function GroupChat({ params }: { params: { id: string } }) {
         )}
       </div>
 
-      {chat ? <ShowChatMembers userIds={chat.members} /> : null}
+      {chat ? <ShowChatMembers userIds={chat.members} ownerId={chat.owner} chatId={chat._id}/> : null}
     </div>
   );
 }

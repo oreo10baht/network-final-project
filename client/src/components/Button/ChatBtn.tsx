@@ -35,8 +35,9 @@ const ChatBtn = ({ friendUsername }: { friendUsername: string }) => {
 
         if (newChat) {
           router.push("/direct/" + newChat._id);
+        } else {
+          console.log("cant create chat");
         }
-        console.log("cant create chat");
       } else {
         router.push("/direct/" + chat._id);
       }

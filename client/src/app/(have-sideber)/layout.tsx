@@ -1,5 +1,5 @@
 "use client";
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/Bar/Sidebar";
 import { useMyMiddleware } from "@/hooks/useMyMiddleware";
 import { useEffect } from "react";
 import { io } from "socket.io-client";

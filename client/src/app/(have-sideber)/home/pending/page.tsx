@@ -6,7 +6,7 @@ import Empty from "@/components/Empty";
 import { getUsersbyIds } from "@/utils/getUsersbyIds";
 import UserBox from "@/components/๊UserBox";
 import { useMyMiddleware } from "@/hooks/useMyMiddleware";
-import CancelFriendReqBtn from "@/components/CancelFriendReqBtn";
+import CancelFriendReqBtn from "@/components/Button/CancelFriendReqBtn";
 import Header from "@/components/Header";
 
 const Pending = () => {
@@ -23,8 +23,9 @@ const Pending = () => {
         }
       }
     };
-    getPenUsers();
-  });
+    // const intervalId = setInterval(getPenUsers, 2000);
+    // return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <>

@@ -8,7 +8,7 @@ import { useState } from "react";
 import ChatBtn from "./ChatBtn";
 
 const RemoveFriendBtn = ({ recipientName }: { recipientName: string }) => {
-  const { user, token ,setUser} = useAuthContext();
+  const { user, token, setUser } = useAuthContext();
   const [removed, setremoved] = useState<boolean>(false);
 
   const removefriend = async (e: any) => {
@@ -19,7 +19,7 @@ const RemoveFriendBtn = ({ recipientName }: { recipientName: string }) => {
       console.log(res, "friend removed");
       const currentUser: UserMe = await getMe(token.current);
       if (currentUser) {
-        setUser(currentUser)
+        setUser(currentUser);
       }
     }
   };

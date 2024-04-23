@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { UserMe } from "@/models/User";
 import Empty from "@/components/Empty";
 import UserBox from "@/components/๊UserBox";
-import AddFriendBtn from "@/components/AddFriendBtn";
+import AddFriendBtn from "@/components/Button/AddFriendBtn";
 import { getAllUsers } from "@/services/getAllUsers";
 import { useAuthContext } from "@/context/Auth";
 import { isFriend } from "@/utils/isFriend";

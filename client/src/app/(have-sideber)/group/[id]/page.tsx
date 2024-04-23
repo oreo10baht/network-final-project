@@ -1,6 +1,6 @@
 "use client";
 import ChatWindow from "@/components/ChatWindow";
-import GroupNavBar from "@/components/GroupNavBar";
+import GroupNavBar from "@/components/Bar/GroupNavBar";
 import { Chat } from "@/models/Chat";
 import { getChatbyChatId } from "@/services/Chats";
 import { useMyMiddleware } from "@/hooks/useMyMiddleware";
@@ -23,17 +23,19 @@ export default function GroupChat({ params }: { params: { id: string } }) {
     fetchChat();
   }, []);
   return (
-    <>
-      <GroupNavBar name={chat?.name} chatId={params.id} />
-      {chat && user && chat?.members?.includes(user?.user_id) ? (
-        <div className="flex w-full">
+    <div className="flex flex-row h-full">
+      <div className="w-full">
+        <GroupNavBar name={chat?.name} chatId={params.id} />
+        {chat && user && chat?.members?.includes(user?.user_id) ? (
           <ChatWindow username={user?.user_id || ""} cid={chat?._id} />
-        </div>
-      ) : (
-        <div className="relative flex items-center h-full w-full justify-center text-white text-lg">
-          You don&apos;t have access to this group!
-        </div>
-      )}
-    </>
+        ) : (
+          <div className="relative flex items-center h-full w-full justify-center text-white text-lg">
+            You don&apos;t have access to this group!
+          </div>
+        )}
+      </div>
+
+      {chat ? <ShowChatMembers userIds={chat.members} /> : null}
+    </div>
   );
 }

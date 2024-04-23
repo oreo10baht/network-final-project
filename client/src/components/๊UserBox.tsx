@@ -1,9 +1,6 @@
 "use client";
 import { UserMe } from "@/models/User";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import AddFriendBtn from "./AddFriendBtn";
-import { useEffect, useState } from "react";
 
 const UserBox = ({
   user,

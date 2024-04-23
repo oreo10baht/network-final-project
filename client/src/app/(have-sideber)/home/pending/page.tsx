@@ -23,8 +23,7 @@ const Pending = () => {
         }
       }
     };
-    // const intervalId = setInterval(getPenUsers, 2000);
-    // return () => clearInterval(intervalId);
+    getPenUsers()
   }, []);
 
   return (

@@ -9,9 +9,9 @@ import { useAuthContext } from "@/context/Auth";
 import { isFriend } from "@/utils/isFriend";
 import { isPending } from "@/utils/isPending";
 import { isMe } from "@/utils/isMe";
-import RemoveFriendBtn from "@/components/RemoveFriendBtn";
-import AcceptFriendBtn from "@/components/AcceptFriendBtn";
-import CancelFriendReqBtn from "@/components/CancelFriendReqBtn";
+import RemoveFriendBtn from "@/components/Button/RemoveFriendBtn";
+import AcceptFriendBtn from "@/components/Button/AcceptFriendBtn";
+import CancelFriendReqBtn from "@/components/Button/CancelFriendReqBtn";
 import { useMyMiddleware } from "@/hooks/useMyMiddleware";
 import Header from "@/components/Header";
 

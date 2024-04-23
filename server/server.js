@@ -4,12 +4,12 @@ const cors = require("cors");
 const http = require("http");
 // const server = http.createServer(app);
 const httpServer = http.createServer(app);
-  app.use(
-    cors({
-      origin: `${process.env.FRONTEND}`,
-      credentials: true,
-    })
-  );
+app.use(
+  cors({
+    origin: `${process.env.FRONTEND}`,
+    credentials: true,
+  })
+);
 const { Server } = require("socket.io");
 const User = require("./models/user.model.js");
 const io = new Server(httpServer, {

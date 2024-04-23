@@ -68,7 +68,7 @@ const CreateGroupPage = () => {
         </div>
 
         <div className="medium-text font-medium my-2">Choose Members</div>
-        <div className="text-gray-800 h-96 overflow-y-auto no-scrollbar w-96 flex gap-1 flex-col p-2 my-2">
+        <div className="text-gray-800 h-96 overflow-y-auto no-scrollbar w-96 flex gap-1 flex-col p-2 my-2 bg-gray-800 rounded-lg">
           {Users &&
             Users.map((userNotMe: UserMe) => (
               <>

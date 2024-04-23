@@ -4,15 +4,15 @@ import { UserMe } from "@/models/User";
 import { getAllUsers } from "@/services/getAllUsers";
 import Empty from "@/components/Empty";
 import UserBox from "@/components/๊UserBox";
-import AddFriendBtn from "@/components/AddFriendBtn";
+import AddFriendBtn from "@/components/Button/AddFriendBtn";
 import { useAuthContext } from "@/context/Auth";
 import { isFriend } from "@/utils/isFriend";
+import RemoveFriendBtn from "@/components/Button/RemoveFriendBtn";
 import { isPending } from "@/utils/isPending";
-import { isMe } from "@/utils/isMe";
-import RemoveFriendBtn from "@/components/RemoveFriendBtn";
-import AcceptFriendBtn from "@/components/AcceptFriendBtn";
-import CancelFriendReqBtn from "@/components/CancelFriendReqBtn";
+import AcceptFriendBtn from "@/components/Button/AcceptFriendBtn";
 import { useMyMiddleware } from "@/hooks/useMyMiddleware";
+import { isMe } from "@/utils/isMe";
+import CancelFriendReqBtn from "@/components/Button/CancelFriendReqBtn";
 import Header from "@/components/Header";
 import { io } from "socket.io-client";
 import { updateStatus } from "@/services/updateStatus";
@@ -21,16 +21,21 @@ const All = () => {
   useMyMiddleware();
   const [Users, setUsers] = useState<UserMe[]>([] as UserMe[]);
   const { user } = useAuthContext();
+  const [count,setCount]  = useState<number>(0);
   useEffect(() => {
     const fetchUser = async () => {
       const users = await getAllUsers();
       if (users) {
         setUsers((prevUser) => [...users]);
-        // console.log(users, user);
+        console.log(users)
       }
     };
-    fetchUser();
-  });
+    fetchUser()
+    // setCount(prev=>prev)
+    // console.log(count)
+    // const intervalId = setInterval(fetchUser, 2000);
+    // return () => clearInterval(intervalId);
+  },[]);
   const updateUserStatus = async () => {
     if (user) {
       const res = await updateStatus(user?.username || "", 1);

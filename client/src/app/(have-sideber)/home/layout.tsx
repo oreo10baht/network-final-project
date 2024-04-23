@@ -1,4 +1,4 @@
-import HomeNavBar from "@/components/HomeNavBar";
+import HomeNavBar from "@/components/Bar/HomeNavBar";
 
 export default function layout({ children }: { children: React.ReactNode }) {
   return (

@@ -82,3 +82,22 @@ export async function createChat(chat: any) {
     console.log(err);
   }
 }
+
+export async function addMemberToChat(memberId: any, chatId: string) {
+  try {
+    const response = await fetch(`${process.env.backend}/api/chats/${chatId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(memberId)
+    })
+
+    if (!response.ok) {
+      throw new Error("can't add member")
+    }
+    return response.json()
+  } catch (err) {
+    console.log(err)
+  }
+}

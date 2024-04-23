@@ -6,6 +6,7 @@ import { getChatbyChatId } from "@/services/Chats";
 import { useMyMiddleware } from "@/hooks/useMyMiddleware";
 import { useState, useEffect } from "react";
 import { useAuthContext } from "@/context/Auth";
+import ShowChatMembers from "@/components/ShowChatMembers";
 
 export default function GroupChat({ params }: { params: { id: string } }) {
   const { user } = useAuthContext();

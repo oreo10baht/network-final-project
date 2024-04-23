@@ -66,7 +66,7 @@ export async function getChatbyChatId(chatId: string) {
   }
 }
 
-export async function createChat(chat: CreateChat) {
+export async function createChat(chat:any) {
   try {
     const response = await fetch(`${process.env.backend}/api/chats/`, {
       method: "POST",
@@ -75,7 +75,7 @@ export async function createChat(chat: CreateChat) {
       },
       body: JSON.stringify(chat),
     });
-
+    
     if (!response.ok) {
       throw new Error("can't create chat");
     }

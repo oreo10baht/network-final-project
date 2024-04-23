@@ -13,6 +13,7 @@ export interface Chat {
   type: ChatType;
   message: Message[];
   reqList: string[];
+  owner: string;
 }
 
 export interface GetChat {
@@ -24,6 +25,7 @@ export interface GetChat {
 }
 
 export interface CreateChat {
+  owner: string,
   firstUsername: string;
   secondUsername: string;
   type: ChatType;

@@ -8,6 +8,6 @@ export const config = {
 export function middleware(request: NextRequest) {
   const res = request.cookies.get("token");
   if (!res) {
-    return NextResponse.redirect(new URL("http://localhost:3000/login"));
+    return NextResponse.redirect(new URL("http://25.22.5.35:3000/login"));
   }
 }

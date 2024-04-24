@@ -48,7 +48,7 @@ const GroupNavBar = ({
       {isOwner && (
         <div>
           <button
-            className="bg-[#5865f2] p-2 rounded-lg text-gray-400 font-medium mr-32 hover:bg-[#4752C4]"
+            className="bg-[#5865f2] p-2 rounded-lg text-gray-400 font-medium mr-8 hover:bg-[#4752C4]"
             onClick={() => {
               setIsShown(true);
             }}

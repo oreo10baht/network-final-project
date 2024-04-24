@@ -2,9 +2,9 @@
 import Sidebar from "@/components/Bar/Sidebar";
 import { useMyMiddleware } from "@/hooks/useMyMiddleware";
 import { useEffect } from "react";
-import { io } from "socket.io-client";
 import { useAuthContext } from "@/context/Auth";
 import { updateStatus } from "@/services/updateStatus";
+import { io } from "socket.io-client";
 const socket = io(`${process.env.backend}`);
 
 export default function Layout({ children }: { children: React.ReactNode }) {

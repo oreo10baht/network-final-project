@@ -6,11 +6,18 @@ import { getMe } from "@/services/getMe";
 import { CheckIcon, Cross2Icon } from "@radix-ui/react-icons";
 import { useState } from "react";
 import ChatBtn from "./ChatBtn";
+import { io } from "socket.io-client";
+import { updateStatus } from "@/services/updateStatus";
+const socket = io(`${process.env.backend}`);
 
 const LogoutBtn = () => {
   const { user, token, setUser } = useAuthContext();
   const [removed, setremoved] = useState<boolean>(false);
-
+  const updateUserStatus = async () => {
+    if (user) {
+      const res = await updateStatus(user?.username || "", 0);
+    }
+  };
   const handleLogout = async (e: any) => {
     console.log("logging out");
     e.preventDefault();
@@ -24,6 +31,8 @@ const LogoutBtn = () => {
         setUser(currentUser);
       }
     }
+    socket.emit("set-offline", user?.username);
+    updateUserStatus();
   };
 
   return (

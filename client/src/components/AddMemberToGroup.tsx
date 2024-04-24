@@ -42,6 +42,7 @@ const AddMemberToGroup = ({
   const addMember = async () => {
     for (const user of membersToAdd) {
       const data = { memberId: user };
+      console.log(data, chatId);
       const response = await addMemberToChat(data, chatId);
     }
     setIsShown(false);

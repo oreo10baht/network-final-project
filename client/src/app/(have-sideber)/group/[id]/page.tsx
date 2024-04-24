@@ -1,7 +1,7 @@
 "use client";
 import ChatWindow from "@/components/ChatWindow";
 import GroupNavBar from "@/components/Bar/GroupNavBar";
-import { Chat } from "@/models/Chat";
+import { Chat, GetChat } from "@/models/Chat";
 import { getChatbyChatId } from "@/services/Chats";
 import { useMyMiddleware } from "@/hooks/useMyMiddleware";
 import { useState, useEffect } from "react";
@@ -10,7 +10,7 @@ import ShowChatMembers from "@/components/ShowChatMembers";
 
 export default function GroupChat({ params }: { params: { id: string } }) {
   const { user } = useAuthContext();
-  const [chat, setChat] = useState<Chat>();
+  const [chat, setChat] = useState<GetChat>();
   useMyMiddleware();
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export default function GroupChat({ params }: { params: { id: string } }) {
       const chat = await getChatbyChatId(params.id);
       if (chat) {
         setChat(chat);
-        console.log(chat,"g c")
+        console.log(chat, "g c");
       }
     };
     fetchChat();
@@ -36,7 +36,14 @@ export default function GroupChat({ params }: { params: { id: string } }) {
         )}
       </div>
 
-      {chat ? <ShowChatMembers userIds={chat.members} reqIds={chat.reqList} ownerId={chat.owner} chatId={chat._id}/> : null}
+      {chat ? (
+        <ShowChatMembers
+          userIds={chat.members}
+          reqIds={chat.requests}
+          ownerId={chat.owner}
+          chatId={chat._id}
+        />
+      ) : null}
     </div>
   );
 }

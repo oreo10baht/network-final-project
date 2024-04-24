@@ -22,6 +22,7 @@ export interface GetChat {
   members: string[];
   type: ChatType;
   requests: string[];
+  owner: string;
 }
 
 export interface CreateChat {

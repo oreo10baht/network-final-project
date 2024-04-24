@@ -137,7 +137,7 @@ export async function removeReq(chatId: string, memberId: string) {
         method: "DELETE",
       }
     );
-
+    console.log(response)
     if (!response.ok) {
       throw new Error("can't remove req join");
     }

@@ -3,18 +3,20 @@ import UserBox from "./๊UserBox";
 import { useEffect, useState } from "react";
 import { getUsersbyIds } from "@/utils/getUsersbyIds";
 import HandleJoinBtn from "./Button/HandleJoinBtn";
+import { useAuthContext } from "@/context/Auth";
 
 const ShowChatMembers = ({
   userIds,
   ownerId,
   reqIds,
-  chatId
+  chatId,
 }: {
   userIds: string[];
   ownerId?: string;
   reqIds?: string[];
-  chatId:string;
+  chatId: string;
 }) => {
+  const { user } = useAuthContext();
   const [members, setMembers] = useState<UserMe[]>();
   const [requesters, setRequesters] = useState<UserMe[]>();
 
@@ -51,17 +53,19 @@ const ShowChatMembers = ({
             </UserBox>
           ))}
       </div>
-      {ownerId ? (
+      {ownerId === user?.user_id ? (
         <div className="flex flex-col h-2/5  overflow-auto no-scrollbar">
           <p className="small-text text-gray-400 font-semibold">Requests</p>
-          {reqIds ? (
+          {reqIds?.length !== 0 ? (
             requesters?.map((member: UserMe) => (
               <UserBox user={member} key={member.username}>
-                <HandleJoinBtn memberId={member.user_id} chatId={chatId}/>
+                <HandleJoinBtn memberId={member.user_id} chatId={chatId} />
               </UserBox>
             ))
           ) : (
-            <p className="text-center m-auto text-gray-400 small-text">no requests</p>
+            <p className="text-center m-auto text-gray-400 small-text">
+              no requests
+            </p>
           )}
         </div>
       ) : null}

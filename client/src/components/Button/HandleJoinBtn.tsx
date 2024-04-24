@@ -13,18 +13,26 @@ const HandleJoinBtn = ({
   const [accepted, setaccepted] = useState<boolean>(false);
   const [canceled, setcanceled] = useState<boolean>(false);
 
-  const addMember = async (e: any) => {
-    e.preventDefault();
-    const res = await addMemberToChat(memberId, chatId);
+  const addMember = async () => {
+    // e.preventDefault();
+    console.log(memberId, chatId);
+    const res = await addMemberToChat({ memberId: memberId }, chatId);
     if (res) {
+      console.log("jnsjdhs");
+      const response = await removeReq(chatId, memberId);
       setaccepted(true);
     }
   };
 
-  const rejectMember = async (e: any) => {
-    e.preventDefault();
-    const res = await removeReq(memberId, chatId);
+  const rejectMember = async () => {
+    // e.preventDefault();
+    console.log(memberId, chatId);
+
+    const res = await removeReq(chatId, memberId);
+
     if (res) {
+      console.log("jnsjdhs");
+
       setcanceled(true);
     }
   };
@@ -43,7 +51,7 @@ const HandleJoinBtn = ({
 
       <button
         className="rounded-full bg-gray-600 p-1 size-8 flex justify-center items-center"
-        onClick={addMember}
+        onClick={rejectMember}
       >
         {canceled ? (
           <CheckIcon className="size-32 text-gray-400" />

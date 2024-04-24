@@ -32,29 +32,23 @@ const HomeNavBar = () => {
     // return () => clearInterval(intervalId);
   }, []);
 
-  // const users = getAllUsers();
-  // console.log(users);
-  console.log("Users");
-  console.log(Users[0]);
-  // console.log(Users[0].user_id);
   const handleLogout = async (e: any) => {
     console.log("logging out");
     e.preventDefault();
     const res = await logout();
     console.log(res, "logging out");
     router.push("/login");
-    // if (res) {
-    //   setremoved(true);
-    //   console.log(res, "logout");
-    //   const currentUser: UserMe = await getMe(token.current);
-    //   if (currentUser) {
-    //     setUser(currentUser);
-    //   }
-    // }
   };
 
   return (
     <div className="flex flex-row w-full h-14 bg-gray-700 justify-center gap-5 items-center border-b-gray-950 border-b-2">
+      <div
+        className="flex text-gray-400 font-medium rounded-lg px-20 py-1 hover:bg-gray-500 absolute left-0"
+        onClick={() => router.push("/home/all")}
+      >
+        Hello, {user?.display_name} (
+        <div className="flex text-gray-500">{user?.username}</div>)
+      </div>
       <div
         className="text-gray-400 font-medium rounded-lg px-2 py-1 hover:bg-gray-500 "
         onClick={() => router.push("/home/friend")}
@@ -88,17 +82,11 @@ const HomeNavBar = () => {
         Requests
       </div>
       <button
-        className="text-gray-400 font-medium rounded-lg px-2 py-1 hover:bg-gray-500 absolute right-0 px-5"
+        className="text-gray-400 font-medium rounded-lg py-1 hover:bg-gray-500 absolute right-0 px-5"
         onClick={handleLogout}
       >
         Logout
       </button>
-      {/* <UserBox user={Users[0]} key={Users[0].user_id} /> */}
-      {/* <UserBox
-        user={Users[0]}
-        key={Users[0].user_id}
-        children={<LogoutBtn />}
-      /> */}
     </div>
   );
 };

@@ -50,7 +50,7 @@ const ChatWindow = ({ username, cid }: { username: string; cid: string }) => {
       minute: "numeric",
       hour12: true,
     };
-    const formattedDateTime = new Intl.DateTimeFormat("en-US").format(
+    const formattedDateTime = new Intl.DateTimeFormat("en-US", options).format(
       formattedTime
     );
     return formattedDateTime;
